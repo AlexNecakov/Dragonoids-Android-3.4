@@ -37,29 +37,14 @@ public class DragonoidsAuto extends LinearOpMode {
     DcMotor motorLF;
     DcMotor motorLB;
 
-    //declaring all shoot motors
-    DcMotor motorShootOne;
-    DcMotor motorShootTwo;
-
-    //declaring ball loader servo
-    Servo loader;
-
-    //declaring lift servos
-    Servo leftRelease;
-    Servo rightRelease;
-
     //declaring various sensors
     ColorSensor colorSensor;
-    OpticalDistanceSensor lineSensor;
     ModernRoboticsI2cRangeSensor rangeSensor;
     ModernRoboticsI2cGyro gyro;
 
     //declaring variables for angle adjustment
     public int targetAngle = 0;
     private int adjustedAngle;
-
-    //declaring variable to act
-    private double initLight;
 
     // encoder counts per rotation on current wheels
     final static int ENCODER_CPR = 1120;
@@ -90,7 +75,6 @@ public class DragonoidsAuto extends LinearOpMode {
         // get a reference to our various hardware objects. The string in the .get() method must be inputed into the phone config (case-sensitive)
 
         colorSensor = hardwareMap.colorSensor.get("sensor_color");
-        lineSensor = hardwareMap.opticalDistanceSensor.get("lineSensor");
         gyro = (ModernRoboticsI2cGyro) hardwareMap.gyroSensor.get("gyro");
         rangeSensor = hardwareMap.get(ModernRoboticsI2cRangeSensor.class, "rangeSensor");
 
@@ -99,19 +83,9 @@ public class DragonoidsAuto extends LinearOpMode {
         motorLF = hardwareMap.dcMotor.get("left_drive_front");
         motorLB = hardwareMap.dcMotor.get("left_drive_back");
 
-        motorShootOne = hardwareMap.dcMotor.get("shooterOne");
-        motorShootTwo = hardwareMap.dcMotor.get("shooterTwo");
-
-        loader = hardwareMap.servo.get("loader");
-
-        leftRelease = hardwareMap.servo.get("leftLift");
-        rightRelease = hardwareMap.servo.get("rightLift");
-
         //starts backwards and drives backwards
         motorRF.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         motorRB.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
-        motorShootTwo.setDirection(DcMotor.Direction.REVERSE);
-        leftRelease.setDirection(Servo.Direction.REVERSE);
 
         //if drive motors receive no power, engage brakes
         motorRF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -131,16 +105,8 @@ public class DragonoidsAuto extends LinearOpMode {
         // changed the heading to signed heading [-360,360]
         gyro.setHeadingMode(ModernRoboticsI2cGyro.HeadingMode.HEADING_CARTESIAN);
 
-        //ODS light is initialized to get a baseline for brightness on gray tiles
-        initLight = lineSensor.getLightDetected();
-
         //LED is disabled as it does nothing relevant and draws power
         colorSensor.enableLed(false);
-
-        //servos need to be in correct position for shooting/lifting
-        loader.setPosition(.515);
-        leftRelease.setPosition(1);
-        rightRelease.setPosition(1);
 
         //when starting the robot, target angle should be 0 and calibrate in the correct orientation
         telemetry.addData("Calibrated", targetAngle);
@@ -380,52 +346,6 @@ public class DragonoidsAuto extends LinearOpMode {
         stopMotors();
     }
 
-    public void shoot () {
-        motorShootOne.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        motorShootTwo.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        sleep(250);
-        motorShootOne.setPower(.62);
-        motorShootTwo.setPower(.62);
-        sleep(750);
-        loader.setPosition(.3);
-        sleep(250);
-
-        motorShootOne.setPower(.619);
-        motorShootTwo.setPower(.619);
-        sleep(250);
-
-        loader.setPosition(.495);
-        sleep(1750);
-
-        loader.setPosition(.3);
-        sleep(500);
-
-        motorShootOne.setPower(0);
-        motorShootTwo.setPower(0);
-
-        loader.setPosition(.515);
-    }
-
-    //bangbang is currently not used in any autonomous. It is used in tele-op for consistent shooting
-    public void bangBang () {
-        fVelocityTime = System.nanoTime();
-
-        fEncoder = motorShootOne.getCurrentPosition();
-
-        fVelocity = (double) (fEncoder - fLastEncoder) / (fVelocityTime - fLastVelocityTime);
-
-        if (fVelocity >= .82) {
-            motorShootOne.setPower(.78);
-            motorShootTwo.setPower(.78);
-        } else if (fVelocity < .82) {
-            motorShootOne.setPower(.82);
-            motorShootTwo.setPower(.82);
-        }
-        fLastEncoder = fEncoder;
-        fLastVelocityTime = fVelocityTime;
-    }
-
     //detect color interprets input from the color sensor and outputs a new color variable
     public int detectColor () {
 
@@ -464,24 +384,6 @@ public class DragonoidsAuto extends LinearOpMode {
         targetAngle = prevTargetAngle;
     }
 
-    public boolean detectLine(){
-
-        boolean foundLine = false;
-
-            //light from darker block should be below certain threshold (0.189 is temporary value)
-            if (lineSensor.getLightDetected() <= initLight+.3){
-                foundLine = false;
-            }
-
-            //light from white tape should be larger than grey, return on line
-            else if (lineSensor.getLightDetected() >= initLight+.3){
-                foundLine = true;
-                stopMotors();
-                resetEncoders();
-            }
-
-        return foundLine;
-    }
 
     public void alignLine(boolean value) {
 

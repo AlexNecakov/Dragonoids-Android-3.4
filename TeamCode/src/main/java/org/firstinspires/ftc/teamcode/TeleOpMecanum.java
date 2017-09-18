@@ -78,24 +78,13 @@ public class TeleOpMecanum extends LinearOpMode {
     double strafe;
     double rotate;
 
-    //dank comment <code></code>
-    //stank comment code
+
     final static int ENCODER_CPR = 1120;
     final static double WHEEL_CIRC = 4 * Math.PI;
     // 1 tile length is 24 inches
     final static int TILE = 24;
 
     final static double ROTATE = TILE / WHEEL_CIRC;
-
-    boolean lifted = false;
-
-    double fVelocity;
-
-    long fVelocityTime;
-    long fLastVelocityTime;
-
-    int fEncoder;
-    int fLastEncoder;
 
     @Override
     public void runOpMode() {
@@ -112,33 +101,12 @@ public class TeleOpMecanum extends LinearOpMode {
         motorLF = hardwareMap.dcMotor.get("left_drive_front");
         motorLB = hardwareMap.dcMotor.get("left_drive_back");
 
-        motorDisp = hardwareMap.dcMotor.get("collector");
-        motorLift = hardwareMap.dcMotor.get("lift");
-
-        motorShootOne = hardwareMap.dcMotor.get("shooterOne");
-        motorShootTwo = hardwareMap.dcMotor.get("shooterTwo");
-
-        motorShootOne.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        motorShootTwo.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        loader = hardwareMap.servo.get("loader");
-        loader.setPosition(.515);
-
-        leftRelease = hardwareMap.servo.get("leftLift");
-        rightRelease = hardwareMap.servo.get("rightLift");
-
         colorSensor = hardwareMap.colorSensor.get("sensor_color");
-
-        leftRelease.setDirection(Servo.Direction.REVERSE);
-
-        leftRelease.setPosition(1);
-        rightRelease.setPosition(1);
 
         motorRF.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         motorRB.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
 
 
-        motorShootTwo.setDirection(DcMotor.Direction.REVERSE);
 
 //MediaPlayer player = MediaPlayer.create(hardwareMap.appContext, R.raw.file);
         //  player.start();
@@ -156,52 +124,6 @@ public class TeleOpMecanum extends LinearOpMode {
             telemetry.addData("leftBack", + motorLB.getPower());
             detectColor();
 
-            //Run the collector
-            if (gamepad2.a) {
-                motorDisp.setPower(1.0);
-            }
-            else if(gamepad2.b) {
-                motorDisp.setPower(-1.0);
-            } else {
-                motorDisp.setPower(0);
-            }
-
-            //Fire up the shoot motors
-            if (gamepad2.left_bumper){
-                bangBang();
-            } else {
-                motorShootOne.setPower(0);
-                motorShootTwo.setPower(0);
-            }
-
-            //load a ball into the shooter
-            if (gamepad2.right_bumper) {
-                loader.setPosition(0.3);
-            } else {
-                loader.setPosition(.495);
-            }
-
-            if (gamepad2.right_trigger > 0.1) {
-                lifted = true;
-                motorLift.setPower(gamepad2.right_trigger);
-            } else if (gamepad2.left_trigger > 0){
-                motorLift.setPower(-gamepad2.left_trigger);
-            } else {
-                motorLift.setPower(0);
-                motorLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            }
-            
-            if(gamepad2.y || gamepad1.y) {
-                lifted = false;
-            }
-
-            if (gamepad1.right_bumper && gamepad1.left_bumper) {
-                leftRelease.setPosition(0);
-                rightRelease.setPosition(0);
-            } else {
-                leftRelease.setPosition(1);
-                rightRelease.setPosition(1);
-            }
 
             //move into position function
             if (gamepad1.x) {
@@ -236,18 +158,6 @@ public class TeleOpMecanum extends LinearOpMode {
                 motorRB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 motorLF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 motorLB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            } else {
-                
-            }
-
-            if (!lifted) {
-                drive = scaleInput(-gamepad1.left_stick_y);
-                strafe = scaleInput(gamepad1.left_stick_x);
-                rotate = scaleInput(gamepad1.right_stick_x);
-            } else {
-                drive = scaleInput(-gamepad1.left_stick_y)*.2;
-                strafe = scaleInput(gamepad1.left_stick_x)*.2;
-                rotate = scaleInput(gamepad1.right_stick_x)*.2;
             }
 
             motorLF.setPower(Range.clip(drive - strafe + rotate, -1.0, 1.0));
@@ -255,6 +165,7 @@ public class TeleOpMecanum extends LinearOpMode {
             motorRF.setPower(Range.clip(drive + strafe - rotate, -1.0, 1.0));
             motorRB.setPower(Range.clip(drive - strafe - rotate, -1.0, 1.0));
 
+            telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Distance Traveled: ", motorLF.getCurrentPosition() * (WHEEL_CIRC / ENCODER_CPR));
             telemetry.update();
 
@@ -320,22 +231,5 @@ public class TeleOpMecanum extends LinearOpMode {
 
 
         return color;
-    }
-    public void bangBang () {
-        fVelocityTime = System.nanoTime();
-
-        fEncoder = motorShootOne.getCurrentPosition();
-
-        fVelocity = (double) (fEncoder - fLastEncoder) / (fVelocityTime - fLastVelocityTime);
-
-        if (fVelocity >= .92) {
-            motorShootOne.setPower(.88);
-            motorShootTwo.setPower(.88);
-        } else if (fVelocity < .92) {
-            motorShootOne.setPower(.92);
-            motorShootTwo.setPower(.92);
-        }
-        fLastEncoder = fEncoder;
-        fLastVelocityTime = fVelocityTime;
     }
 }
