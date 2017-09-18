@@ -79,6 +79,7 @@ public class TeleOpMecanum extends LinearOpMode {
     double rotate;
 
     //dank comment <code></code>
+    //stank comment code
     final static int ENCODER_CPR = 1120;
     final static double WHEEL_CIRC = 4 * Math.PI;
     // 1 tile length is 24 inches
