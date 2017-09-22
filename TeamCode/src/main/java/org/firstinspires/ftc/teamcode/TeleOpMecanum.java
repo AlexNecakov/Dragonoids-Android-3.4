@@ -54,17 +54,6 @@ public class TeleOpMecanum extends LinearOpMode {
     DcMotor motorLF;
     DcMotor motorLB;
 
-    DcMotor motorDisp;
-    DcMotor motorLift;
-
-    DcMotor motorShootOne;
-    DcMotor motorShootTwo;
-
-    Servo loader;
-
-    Servo leftRelease;
-    Servo rightRelease;
-
     ColorSensor colorSensor;
     boolean color;
 
