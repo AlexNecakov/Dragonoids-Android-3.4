@@ -75,13 +75,6 @@ public class DragonoidsAuto extends LinearOpMode {
     // values is a reference to the hsvValues array.
     final float values[] = hsvValues;
 
-    //variables for bangBang
-    double fVelocity;
-    long fVelocityTime;
-    long fLastVelocityTime;
-    int fEncoder;
-    int fLastEncoder;
-
     //runopmode is all of the functions that run when init is pressed on the robot
     public void runOpMode() throws InterruptedException {
 
