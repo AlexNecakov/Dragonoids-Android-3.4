@@ -44,7 +44,6 @@ public class DragonoidsAutoBlue1 extends DragonoidsAuto{
             }
             strafe(-.9,.8);
             turn(100);
-            shoot();
             strafe(.65,1);
             forward(-1.45,.8);
 
