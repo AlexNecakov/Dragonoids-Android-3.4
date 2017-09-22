@@ -55,6 +55,9 @@ public class DragonoidsAuto extends LinearOpMode {
     ModernRoboticsI2cRangeSensor rangeSensor;
     ModernRoboticsI2cGyro gyro;
 
+    //declaring vuforia instance
+    VuforiaLocalizer vuforia;
+
     //declaring variables for angle adjustment
     public int targetAngle = 0;
     private int adjustedAngle;
@@ -114,12 +117,29 @@ public class DragonoidsAuto extends LinearOpMode {
         //LED is disabled as it does nothing relevant and draws power
         colorSensor.enableLed(false);
 
+        //start vuforia with camera monitor
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
+        // VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
+
+        //vuforia license DO NOT CHANGE THIS LINE
+        parameters.vuforiaLicenseKey = "AegzGgb/////AAAAGY1xgpx1VUoDps1ud5K9VtYvynoEaO+Pg4uSUqw0ZTHIythxw9xKhy4+Ev14+mYsJAPNacxxg1TtpjWBVCHtvin9nRwZFMrgt086cfqtxBOrw+BHlj6tcy3oG33e/vCFmd755KLNFt8NbEM97YtYhJdrlxVKg7bZ4SJPl8QAu0XUrtjm/GlCz2GNrsIMYZ2ao6lMmfYzU/aUIRzGdBw46bZbFBNTXmbYB5Fml3jT9aKXDDSbH+HJHATrok7LO0+yd8Dbyhl/fLsRZ/vI1B/NRZNv/HpDIrEieDsyIDj60xV44BP4o3gR3URhgRamNxNl5ddZpxPqzB2xldScjENbF4ULBCLvIBOCudbI7BDiylrr";
+
+        //activate rear camera
+        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
+        this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
+
+        //load Relic Recovery images
+        VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
+        VuforiaTrackable relicTemplate = relicTrackables.get(0);
+
         //when starting the robot, target angle should be 0 and calibrate in the correct orientation
         telemetry.addData("Calibrated", targetAngle);
         telemetry.update();
 
         waitForStart();
         gyro.resetZAxisIntegrator();
+        relicTrackables.activate();
     }
 
     //reset encoders needs to be called at the beginning of functions for distance to be accurately calculated. Makes encoder count zero again
@@ -448,5 +468,26 @@ public class DragonoidsAuto extends LinearOpMode {
         stopMotors();
         }
 
+    public void photoSense() {
 
+            /**
+             * See if any of the instances of {@link relicTemplate} are currently visible.
+             * {@link RelicRecoveryVuMark} is an enum which can have the following values:
+             * UNKNOWN, LEFT, CENTER, and RIGHT. When a VuMark is visible, something other than
+             * UNKNOWN will be returned by {@link RelicRecoveryVuMark#from(VuforiaTrackable)}.
+             */
+            RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
+            if (vuMark != RelicRecoveryVuMark.UNKNOWN) {
+
+                /* Found an instance of the template. In the actual game, you will probably
+                 * loop until this condition occurs, then move on to act accordingly depending
+                 * on which VuMark was visible. */
+                telemetry.addData("VuMark", "%s visible", vuMark);
+            } else {
+                telemetry.addData("VuMark", "not visible");
+            }
+
+            telemetry.update();
+
+    }
 }
