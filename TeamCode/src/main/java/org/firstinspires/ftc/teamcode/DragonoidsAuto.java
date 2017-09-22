@@ -406,7 +406,7 @@ public class DragonoidsAuto extends LinearOpMode {
         motorLB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         if(value) {
-            while(!detectLine() && opModeIsActive()){
+            while(false && opModeIsActive()){
 
 
                 motorRF.setPower(-.15);
@@ -414,7 +414,7 @@ public class DragonoidsAuto extends LinearOpMode {
                 motorLF.setPower(-.15);
                 motorLB.setPower(-.15); }
         } else {
-            while(!detectLine() && opModeIsActive()){
+            while(false && opModeIsActive()){
 
                 motorRF.setPower(.15);
                 motorRB.setPower(.15);
