@@ -468,21 +468,26 @@ public class DragonoidsAuto extends LinearOpMode {
         stopMotors();
         }
 
-    public void photoSense() {
+    public int photoSense() {
+        int cryptokey = 0;
 
-            /**
-             * See if any of the instances of {@link relicTemplate} are currently visible.
-             * {@link RelicRecoveryVuMark} is an enum which can have the following values:
-             * UNKNOWN, LEFT, CENTER, and RIGHT. When a VuMark is visible, something other than
-             * UNKNOWN will be returned by {@link RelicRecoveryVuMark#from(VuforiaTrackable)}.
-             */
-            RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
-            if (vuMark != RelicRecoveryVuMark.UNKNOWN) {
+        RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
 
+        while (cryptokey == 0) {
+            if (vuMark == RelicRecoveryVuMark.LEFT) {
+                cryptokey= 1;
+                telemetry.addData("VuMark", "%s visible", vuMark);
+            } else if (vuMark == RelicRecoveryVuMark.CENTER) {
+                cryptokey= 2;
+                telemetry.addData("VuMark", "%s visible", vuMark);
+            } else if (vuMark == RelicRecoveryVuMark.RIGHT) {
+                cryptokey= 3;
                 telemetry.addData("VuMark", "%s visible", vuMark);
             } else {
                 telemetry.addData("VuMark", "not visible");
             }
             telemetry.update();
+        }
+        return cryptokey;
     }
 }
