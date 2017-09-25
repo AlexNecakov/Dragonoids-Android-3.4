@@ -149,6 +149,10 @@ public class TeleOpMecanum extends LinearOpMode {
                 motorLB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             }
 
+            drive = scaleInput(-gamepad1.left_stick_y)*.2;
+            strafe = scaleInput(gamepad1.left_stick_x)*.2;
+            rotate = scaleInput(gamepad1.right_stick_x)*.2;
+
             motorLF.setPower(Range.clip(drive - strafe + rotate, -1.0, 1.0));
             motorLB.setPower(Range.clip(drive + strafe + rotate, -1.0, 1.0));
             motorRF.setPower(Range.clip(drive + strafe - rotate, -1.0, 1.0));
