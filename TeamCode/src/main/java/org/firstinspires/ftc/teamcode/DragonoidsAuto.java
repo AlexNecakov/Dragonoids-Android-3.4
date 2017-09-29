@@ -52,7 +52,7 @@ public class DragonoidsAuto extends LinearOpMode {
 
     //declaring various sensors
     ColorSensor colorSensor;
-    ModernRoboticsI2cRangeSensor rangeSensor;
+    DistanceSensor rangeSensor;
     ModernRoboticsI2cGyro gyro;
 
     //declaring vuforia instance
@@ -87,9 +87,9 @@ public class DragonoidsAuto extends LinearOpMode {
 
         // get a reference to our various hardware objects. The string in the .get() method must be inputed into the phone config (case-sensitive)
 
-        colorSensor = hardwareMap.colorSensor.get("sensor_color");
+        colorSensor = hardwareMap.get(ColorSensor.class, "distanceColor");
         gyro = (ModernRoboticsI2cGyro) hardwareMap.gyroSensor.get("gyro");
-        rangeSensor = hardwareMap.get(ModernRoboticsI2cRangeSensor.class, "rangeSensor");
+        rangeSensor = hardwareMap.get(DistanceSensor.class, "distanceColor");
 
         motorRF = hardwareMap.dcMotor.get("right_drive_front");
         motorRB = hardwareMap.dcMotor.get("right_drive_back");
