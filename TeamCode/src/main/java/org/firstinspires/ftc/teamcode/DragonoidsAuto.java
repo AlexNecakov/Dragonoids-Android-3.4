@@ -58,10 +58,6 @@ public class DragonoidsAuto extends LinearOpMode {
     //declaring vuforia instance
     VuforiaLocalizer vuforia;
 
-    //load Relic Recovery images
-    VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
-    VuforiaTrackable relicTemplate = relicTrackables.get(0);
-
     //declaring variables for angle adjustment
     public int targetAngle = 0;
     private int adjustedAngle;
@@ -132,6 +128,10 @@ public class DragonoidsAuto extends LinearOpMode {
         //activate rear camera
         parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
         this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
+
+        //load Relic Recovery images
+        VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
+        VuforiaTrackable relicTemplate = relicTrackables.get(0);
 
         //when starting the robot, target angle should be 0 and calibrate in the correct orientation
         telemetry.addData("Calibrated", targetAngle);
