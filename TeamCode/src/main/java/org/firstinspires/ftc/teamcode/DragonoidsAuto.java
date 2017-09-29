@@ -468,7 +468,7 @@ public class DragonoidsAuto extends LinearOpMode {
         stopMotors();
         }
 
-    public int photoSense() {
+    public int photoSense(VuforiaTrackable relicTemplate) {
         int cryptokey = 0;
 
         RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
