@@ -378,6 +378,14 @@ public class DragonoidsAuto extends LinearOpMode {
         stopMotors();
     }
 
+    public void deployColor(boolean direction){
+        if(direction==true){
+            juulKnocker.setPosition(1);
+        }
+        else{
+            juulKnocker.setPosition(0);
+        }
+    }
     //detect color interprets input from the color sensor and outputs a new color variable
     public int detectColor () {
 
