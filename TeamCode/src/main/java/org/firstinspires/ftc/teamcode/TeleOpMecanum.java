@@ -44,7 +44,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name="TeleOp Mecanum", group="Linear Opmode")  // @Autonomous(...) is the other common choice
+@TeleOp(name="Mecanum Drive", group="Linear Opmode")  // @Autonomous(...) is the other common choice
 public class TeleOpMecanum extends LinearOpMode {
 
     /* Declare OpMode members. */
