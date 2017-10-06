@@ -13,6 +13,11 @@ public class AutoBlueMat extends DragonoidsAuto{
         super.runOpMode();
 
         while (opModeIsActive()) {
+            deployColor(true);
+            sleep(3000);
+            detectColor();
+            sleep(500);
+            deployColor(false);
             break;
         }
     }
