@@ -409,6 +409,26 @@ public class DragonoidsAuto extends LinearOpMode {
         return color;
     }
 
+    public void knock(boolean team){
+        //bool team is what team color you are, blue is false red is true
+        if(team==true){
+            if(detectColor()==1){
+                forward(-.2,.5);
+            }
+            else if(detectColor()==2){
+                forward(.2,.5);
+            }
+        }
+        else{
+            if(detectColor()==1){
+                forward(.2,.5);
+            }
+            else if(detectColor()==2){
+                forward(-.2,.5);
+            }
+        }
+    }
+
     //target angle should return back to its target angle before the adjust
     public void adjustHeading() {
 
