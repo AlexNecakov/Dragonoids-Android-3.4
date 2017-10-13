@@ -362,14 +362,6 @@ public class DragonoidsAuto extends LinearOpMode {
         stopMotors();
     }
 
-    public void deployColor(boolean direction){
-        if(direction==true){
-            juulKnocker.setPosition(1);
-        }
-        else{
-            juulKnocker.setPosition(0);
-        }
-    }
     //detect color interprets input from the color sensor and outputs a new color variable
     public int detectColor () {
 
@@ -394,6 +386,9 @@ public class DragonoidsAuto extends LinearOpMode {
     }
 
     public void knock(boolean team){
+
+        juulKnocker.setPosition(1);
+        sleep(300);
         //bool team is what team color you are, blue is false red is true
         if(team==true){
             if(detectColor()==1){
@@ -411,6 +406,9 @@ public class DragonoidsAuto extends LinearOpMode {
                 forward(-.2,.5);
             }
         }
+        sleep(300);
+        juulKnocker.setPosition(0);
+
     }
 
     //target angle should return back to its target angle before the adjust
