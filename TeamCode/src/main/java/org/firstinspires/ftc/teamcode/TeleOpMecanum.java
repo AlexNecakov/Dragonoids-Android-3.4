@@ -34,12 +34,14 @@ package org.firstinspires.ftc.teamcode;
 
 import android.graphics.Color;
 
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
@@ -54,7 +56,10 @@ public class TeleOpMecanum extends LinearOpMode {
     DcMotor motorLF;
     DcMotor motorLB;
 
+    //declaring various sensors
     ColorSensor colorSensor;
+    DistanceSensor rangeSensor;
+    ModernRoboticsI2cGyro gyro;
     boolean color;
 
     // hsvValues is an array that will hold the hue, saturation, and value information.
@@ -90,7 +95,9 @@ public class TeleOpMecanum extends LinearOpMode {
         motorLF = hardwareMap.dcMotor.get("left_drive_front");
         motorLB = hardwareMap.dcMotor.get("left_drive_back");
 
-        colorSensor = hardwareMap.colorSensor.get("sensor_color");
+        colorSensor = hardwareMap.get(ColorSensor.class, "distanceColor");
+        gyro = (ModernRoboticsI2cGyro) hardwareMap.gyroSensor.get("gyro");
+        rangeSensor = hardwareMap.get(DistanceSensor.class, "distanceColor");
 
         motorRF.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         motorRB.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
@@ -115,7 +122,7 @@ public class TeleOpMecanum extends LinearOpMode {
 
 
             //move into position function
-            if (gamepad1.x) {
+            /*if (gamepad1.x) {
 
                double distance = ENCODER_CPR * ROTATE * 2;
 
@@ -147,7 +154,7 @@ public class TeleOpMecanum extends LinearOpMode {
                 motorRB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 motorLF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 motorLB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            }
+            }*/
 
             drive = scaleInput(-gamepad1.left_stick_y);
             strafe = scaleInput(gamepad1.left_stick_x);
