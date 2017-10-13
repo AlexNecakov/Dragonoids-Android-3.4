@@ -524,7 +524,7 @@ public class DragonoidsAuto extends LinearOpMode {
         return cryptokey;
     }
 
-    public void chooseRelic(int cryptokey) {
+    public void chooseGlyph(int cryptokey) {
 
         if (cryptokey==0){
             //move to left glyph
