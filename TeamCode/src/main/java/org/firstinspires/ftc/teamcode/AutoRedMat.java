@@ -1,12 +1,14 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 /**
  * Created by Dragonoids on 2/27/2017.
  */
-@Autonomous(name="Blue Auto Mat", group="Blue")
-public class AutoBlueMat extends DragonoidsAuto{
+@Disabled
+@Autonomous(name="Auto Template", group="Blue")
+public class AutoRedMat extends DragonoidsAuto{
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -14,15 +16,7 @@ public class AutoBlueMat extends DragonoidsAuto{
 
         while (opModeIsActive()) {
 
-            int key = photoSense();
-            strafe(-.3,.3);
-            knock(false);
-
-            forward(1.5,.8);
-            turn(-90);
-            chooseGlyph(key);
             break;
         }
     }
 }
-
