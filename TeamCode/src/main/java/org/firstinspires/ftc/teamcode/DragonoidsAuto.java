@@ -507,9 +507,12 @@ public class DragonoidsAuto extends LinearOpMode {
         VuforiaTrackable relicTemplate = relicTrackables.get(0);
         relicTrackables.activate();
 
-        RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
+
 
         while (cryptokey == 0) {
+
+            RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
+
             if (vuMark == RelicRecoveryVuMark.LEFT) {
                 cryptokey= 1;
                 telemetry.addData("VuMark", "%s visible", vuMark);
