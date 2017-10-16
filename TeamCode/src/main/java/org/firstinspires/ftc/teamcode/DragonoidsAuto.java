@@ -96,7 +96,7 @@ public class DragonoidsAuto extends LinearOpMode {
         motorLB = hardwareMap.dcMotor.get("left_drive_back");
 
         juulKnocker = hardwareMap.servo.get("jewel_knocker");
-        juulKnocker.setPosition(0);
+        juulKnocker.setPosition(1);
 
         //starts backwards and drives backwards
         motorRF.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
@@ -387,23 +387,23 @@ public class DragonoidsAuto extends LinearOpMode {
 
     public void knock(boolean team){
 
-        juulKnocker.setPosition(1);
-        sleep(300);
+        juulKnocker.setPosition(0);
+        sleep(600);
         //bool team is what team color you are, blue is false red is true
         if(team==true){
             if(detectColor()==1){
-                forward(-.2,.5);
+                forward(.08,.2);
             }
             else if(detectColor()==2){
-                forward(.2,.5);
+                forward(-.08,.2);
             }
         }
         else{
             if(detectColor()==1){
-                forward(.2,.5);
+                //forward(-.08,.2);
             }
             else if(detectColor()==2){
-                forward(-.2,.5);
+                //forward(.08,.2);
             }
         }
         sleep(300);
