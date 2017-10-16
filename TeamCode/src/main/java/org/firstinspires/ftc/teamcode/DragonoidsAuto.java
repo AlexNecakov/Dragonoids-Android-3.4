@@ -401,11 +401,14 @@ public class DragonoidsAuto extends LinearOpMode {
         else{
             if(detectColor()==1){
                 //forward(-.08,.2);
+                telemetry.addData("Backward: ",1);
             }
             else if(detectColor()==2){
                 //forward(.08,.2);
+                telemetry.addData("Forward: ",1);
             }
         }
+        telemetry.update();
         sleep(300);
         juulKnocker.setPosition(0);
 
