@@ -56,6 +56,10 @@ public class TeleOpMecanum extends LinearOpMode {
     DcMotor motorLF;
     DcMotor motorLB;
 
+    //Declare servos
+    Servo grabLeft;
+    Servo grabRight;
+
     //declaring various sensors
     ColorSensor colorSensor;
     DistanceSensor rangeSensor;
@@ -85,7 +89,6 @@ public class TeleOpMecanum extends LinearOpMode {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
-
         /* eg: Initialize the hardware variables. Note that the strings used here as parameters
          * to 'get' must correspond to the names assigned during the robot configuration
          * step (using the FTC Robot Controller app on the phone).
@@ -94,6 +97,12 @@ public class TeleOpMecanum extends LinearOpMode {
         motorRB = hardwareMap.dcMotor.get("right_drive_back");
         motorLF = hardwareMap.dcMotor.get("left_drive_front");
         motorLB = hardwareMap.dcMotor.get("left_drive_back");
+
+        grabLeft = hardwareMap.get(Servo.class, "left_grabber");
+        grabRight = hardwareMap.get(Servo.class, "right_grabber");
+
+        grabLeft.setPosition(0);
+        grabRight.setPosition(1);
 
         colorSensor = hardwareMap.get(ColorSensor.class, "distanceColor");
         gyro = (ModernRoboticsI2cGyro) hardwareMap.gyroSensor.get("gyro");
