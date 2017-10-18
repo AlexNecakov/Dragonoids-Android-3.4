@@ -127,43 +127,6 @@ public class TeleOpMecanum extends LinearOpMode {
             telemetry.addData("leftFront", + motorLF.getPower());
             telemetry.addData("rightBack", + motorRB.getPower());
             telemetry.addData("leftBack", + motorLB.getPower());
-            detectColor();
-
-
-            //move into position function
-            /*if (gamepad1.x) {
-
-               double distance = ENCODER_CPR * ROTATE * 2;
-
-                motorRF.setTargetPosition((int) distance);
-                motorRB.setTargetPosition((int) distance);
-                motorLF.setTargetPosition((int) distance);
-                motorLB.setTargetPosition((int) distance);
-
-                motorRF.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                motorRB.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                motorLF.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                motorLB.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-                motorRF.setPower(.9);
-                motorRB.setPower(.9);
-                motorLF.setPower(.9);
-                motorLB.setPower(.9);
-
-                while (opModeIsActive() && (Math.abs(motorRB.getCurrentPosition())<=Math.abs(distance) || Math.abs(motorRF.getCurrentPosition())<=Math.abs(distance) ||
-                        Math.abs(motorLB.getCurrentPosition())<=Math.abs(distance) || Math.abs(motorLF.getCurrentPosition())<=Math.abs(distance))) {
-
-                }
-                motorRF.setPower(0);
-                motorRB.setPower(0);
-                motorLF.setPower(0);
-                motorLB.setPower(0);
-
-                motorRF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                motorRB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                motorLF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                motorLB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            }*/
 
             drive = scaleInput(-gamepad1.left_stick_y);
             strafe = scaleInput(gamepad1.left_stick_x);
