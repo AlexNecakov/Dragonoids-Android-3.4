@@ -52,6 +52,8 @@ public class DragonoidsAuto extends LinearOpMode {
 
     //declaring servos
     Servo juulKnocker;
+    Servo grabLeft;
+    Servo grabRight;
 
     //declaring various sensors
     ColorSensor colorSensor;
@@ -94,6 +96,12 @@ public class DragonoidsAuto extends LinearOpMode {
         motorRB = hardwareMap.dcMotor.get("right_drive_back");
         motorLF = hardwareMap.dcMotor.get("left_drive_front");
         motorLB = hardwareMap.dcMotor.get("left_drive_back");
+
+        grabLeft = hardwareMap.get(Servo.class, "left_grabber");
+        grabRight = hardwareMap.get(Servo.class, "right_grabber");
+
+        grabLeft.setPosition(0);
+        grabRight.setPosition(1);
 
         juulKnocker = hardwareMap.servo.get("jewel_knocker");
         juulKnocker.setPosition(1);
