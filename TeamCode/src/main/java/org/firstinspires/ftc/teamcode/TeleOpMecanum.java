@@ -137,6 +137,16 @@ public class TeleOpMecanum extends LinearOpMode {
             motorRF.setPower(Range.clip(drive + strafe - rotate, -1.0, 1.0));
             motorRB.setPower(Range.clip(drive - strafe - rotate, -1.0, 1.0));
 
+            if (gamepad2.right_trigger > 0.1) {
+
+                grabLeft.setPosition(gamepad2.right_trigger);
+                grabRight.setPosition(1-gamepad2.right_trigger);
+            }
+            else {
+                grabLeft.setPosition(0);
+                grabRight.setPosition(1);
+            }
+
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Distance Traveled: ", motorLF.getCurrentPosition() * (WHEEL_CIRC / ENCODER_CPR));
             telemetry.update();
