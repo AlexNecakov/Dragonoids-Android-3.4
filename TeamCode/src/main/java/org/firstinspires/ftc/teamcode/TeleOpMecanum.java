@@ -56,6 +56,8 @@ public class TeleOpMecanum extends LinearOpMode {
     DcMotor motorLF;
     DcMotor motorLB;
 
+    DcMotor motorLift;
+
     //Declare servos
     Servo grabLeft;
     Servo grabRight;
@@ -98,6 +100,8 @@ public class TeleOpMecanum extends LinearOpMode {
         motorLF = hardwareMap.dcMotor.get("left_drive_front");
         motorLB = hardwareMap.dcMotor.get("left_drive_back");
 
+        motorLift = hardwareMap.dcMotor.get("lift");
+
         grabLeft = hardwareMap.get(Servo.class, "left_grabber");
         grabRight = hardwareMap.get(Servo.class, "right_grabber");
 
@@ -136,6 +140,19 @@ public class TeleOpMecanum extends LinearOpMode {
             motorLB.setPower(Range.clip(drive + strafe + rotate, -1.0, 1.0));
             motorRF.setPower(Range.clip(drive + strafe - rotate, -1.0, 1.0));
             motorRB.setPower(Range.clip(drive - strafe - rotate, -1.0, 1.0));
+
+            if (gamepad1.right_trigger > 0.1) {
+
+                motorLift.setPower(.5);
+            }
+            if (gamepad1.left_trigger > 0.1) {
+
+                motorLift.setPower(-.5);
+            }
+            if(gamepad1.right_trigger <= 0.1&&gamepad1.left_trigger <= 0.1){
+                motorLift.setPower(0);
+            }
+
 
             if (gamepad2.right_trigger > 0.1) {
 
