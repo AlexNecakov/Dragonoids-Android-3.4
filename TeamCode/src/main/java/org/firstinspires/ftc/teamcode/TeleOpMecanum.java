@@ -106,8 +106,9 @@ public class TeleOpMecanum extends LinearOpMode {
         grabLeft = hardwareMap.get(Servo.class, "left_grabber");
         grabRight = hardwareMap.get(Servo.class, "right_grabber");
 
-        grabLeft.setPosition(0);
-        grabRight.setPosition(1);
+        grabLeft.setPosition(1);
+        grabRight.setPosition(0);
+
         juulKnocker = hardwareMap.servo.get("jewel_knocker");
         juulKnocker.setPosition(1);
 
