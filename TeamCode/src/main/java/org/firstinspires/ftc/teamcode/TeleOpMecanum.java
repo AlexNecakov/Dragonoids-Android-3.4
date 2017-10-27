@@ -160,6 +160,10 @@ public class TeleOpMecanum extends LinearOpMode {
 
 
 
+            double liftPosition = ENCODER_CPR * ROTATE* gamepad2.left_trigger*.71;
+            motorLift.setTargetPosition((int) liftPosition);
+            motorLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            motorLift.setPower(.5);
 
             if (gamepad2.right_trigger > 0.1) {
 
