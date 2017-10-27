@@ -34,6 +34,7 @@ package org.firstinspires.ftc.teamcode;
 
 import android.graphics.Color;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -65,7 +66,7 @@ public class TeleOpMecanum extends LinearOpMode {
     //declaring various sensors
     ColorSensor colorSensor;
     DistanceSensor rangeSensor;
-    ModernRoboticsI2cGyro gyro;
+    BNO055IMU gyro;
     boolean color;
 
     // hsvValues is an array that will hold the hue, saturation, and value information.
@@ -107,9 +108,11 @@ public class TeleOpMecanum extends LinearOpMode {
 
         grabLeft.setPosition(0);
         grabRight.setPosition(1);
+        juulKnocker = hardwareMap.servo.get("jewel_knocker");
+        juulKnocker.setPosition(1);
 
         colorSensor = hardwareMap.get(ColorSensor.class, "distanceColor");
-        gyro = (ModernRoboticsI2cGyro) hardwareMap.gyroSensor.get("gyro");
+        gyro = hardwareMap.get(BNO055IMU.class, "gyro");
         rangeSensor = hardwareMap.get(DistanceSensor.class, "distanceColor");
 
         motorRF.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors

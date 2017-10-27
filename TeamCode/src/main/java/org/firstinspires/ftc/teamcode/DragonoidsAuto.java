@@ -116,6 +116,7 @@ public class DragonoidsAuto extends LinearOpMode {
         motorLF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motorLB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+
         //gyro must be recalibrated upon every auto to ensure correct turns. Gyro is done calibrating when the DS outputs "calibrated:0"
         gyro.calibrate();
         while (!isStopRequested() && gyro.isCalibrating()) {
