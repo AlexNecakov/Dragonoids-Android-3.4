@@ -62,6 +62,7 @@ public class TeleOpMecanum extends LinearOpMode {
     //Declare servos
     Servo grabLeft;
     Servo grabRight;
+    Servo juulKnocker;
 
     //declaring various sensors
     ColorSensor colorSensor;
@@ -145,7 +146,7 @@ public class TeleOpMecanum extends LinearOpMode {
             motorRF.setPower(Range.clip(drive + strafe - rotate, -1.0, 1.0));
             motorRB.setPower(Range.clip(drive - strafe - rotate, -1.0, 1.0));
 
-            if (gamepad1.right_trigger > 0.1) {
+            /*if (gamepad1.right_trigger > 0.1) {
 
                 motorLift.setPower(.5);
             }
@@ -155,7 +156,9 @@ public class TeleOpMecanum extends LinearOpMode {
             }
             if(gamepad1.right_trigger <= 0.1&&gamepad1.left_trigger <= 0.1){
                 motorLift.setPower(0);
-            }
+            }*/
+
+
 
 
             if (gamepad2.right_trigger > 0.1) {
@@ -168,6 +171,7 @@ public class TeleOpMecanum extends LinearOpMode {
                 grabRight.setPosition(1);
             }
 
+            telemetry.addData("Trigger Position: ",gamepad2.left_trigger);
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Distance Traveled: ", motorLF.getCurrentPosition() * (WHEEL_CIRC / ENCODER_CPR));
             telemetry.update();
