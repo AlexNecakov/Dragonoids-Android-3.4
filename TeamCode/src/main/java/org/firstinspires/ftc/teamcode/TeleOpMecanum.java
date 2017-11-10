@@ -142,10 +142,10 @@ public class TeleOpMecanum extends LinearOpMode {
             strafe = scaleInput(gamepad1.left_stick_x);
             rotate = scaleInput(gamepad1.right_stick_x);
 
-            motorLF.setPower(Range.clip(drive - strafe + rotate, -1.0, 1.0));
-            motorLB.setPower(Range.clip(drive + strafe + rotate, -1.0, 1.0));
-            motorRF.setPower(Range.clip(drive + strafe - rotate, -1.0, 1.0));
-            motorRB.setPower(Range.clip(drive - strafe - rotate, -1.0, 1.0));
+            motorLF.setPower(Range.clip(drive + strafe + rotate, -1.0, 1.0));
+            motorLB.setPower(Range.clip(drive - strafe + rotate, -1.0, 1.0));
+            motorRF.setPower(Range.clip(drive - strafe - rotate, -1.0, 1.0));
+            motorRB.setPower(Range.clip(drive + strafe - rotate, -1.0, 1.0));
 
             /*if (gamepad1.right_trigger > 0.1) {
 
