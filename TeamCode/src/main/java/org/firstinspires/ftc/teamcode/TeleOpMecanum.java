@@ -147,24 +147,24 @@ public class TeleOpMecanum extends LinearOpMode {
             motorRF.setPower(Range.clip(drive - strafe - rotate, -1.0, 1.0));
             motorRB.setPower(Range.clip(drive + strafe - rotate, -1.0, 1.0));
 
-            /*if (gamepad1.right_trigger > 0.1) {
-
-                motorLift.setPower(.5);
-            }
-            if (gamepad1.left_trigger > 0.1) {
+            if (gamepad2.right_stick_y > 0.4) {
 
                 motorLift.setPower(-.5);
             }
-            if(gamepad1.right_trigger <= 0.1&&gamepad1.left_trigger <= 0.1){
+            if (gamepad2.right_stick_y < -0.4) {
+
+                motorLift.setPower(.5);
+            }
+            if(Math.abs(gamepad2.right_stick_y)<0.4){
                 motorLift.setPower(0);
-            }*/
+            }
 
 
-
-            double liftPosition = ENCODER_CPR * ROTATE* gamepad2.left_trigger*.71;
+            //theoretical lift code for going down constantly
+           /*double liftPosition = ENCODER_CPR * ROTATE* gamepad2.left_trigger*.58;
             motorLift.setTargetPosition((int) liftPosition);
             motorLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            motorLift.setPower(.2);
+            motorLift.setPower(.2);*/
 
             if (gamepad2.right_trigger > 0.1) {
 
