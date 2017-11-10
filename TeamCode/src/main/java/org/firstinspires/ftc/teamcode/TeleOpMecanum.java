@@ -119,6 +119,7 @@ public class TeleOpMecanum extends LinearOpMode {
 
         motorRF.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         motorRB.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        motorLift.setDirection(DcMotor.Direction.REVERSE);
 
 
 
@@ -167,12 +168,12 @@ public class TeleOpMecanum extends LinearOpMode {
 
             if (gamepad2.right_trigger > 0.1) {
 
-                grabLeft.setPosition(gamepad2.right_trigger);
-                grabRight.setPosition(1-gamepad2.right_trigger);
+                grabRight.setPosition(gamepad2.right_trigger);
+                grabLeft.setPosition(1-gamepad2.right_trigger);
             }
             else {
-                grabLeft.setPosition(0);
-                grabRight.setPosition(1);
+                grabLeft.setPosition(1);
+                grabRight.setPosition(0);
             }
 
             telemetry.addData("Trigger Position: ",gamepad2.left_trigger);
