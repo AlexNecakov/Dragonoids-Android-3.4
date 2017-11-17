@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode;
 //importing all relevant hardware classes
 import android.graphics.Color;
 import android.hardware.SensorEventListener;
+
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
