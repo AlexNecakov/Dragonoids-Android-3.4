@@ -58,7 +58,7 @@ public class DragonoidsAuto extends LinearOpMode {
     //declaring various sensors
     ColorSensor colorSensor;
     DistanceSensor rangeSensor;
-    ModernRoboticsI2cGyro gyro;
+    BNO055IMU gyro;
 
     //declaring vuforia instance
     VuforiaLocalizer vuforia;
@@ -66,6 +66,7 @@ public class DragonoidsAuto extends LinearOpMode {
     //declaring variables for angle adjustment
     public int targetAngle = 0;
     private int adjustedAngle;
+    Orientation angles;
 
     // encoder counts per rotation on current wheels
     final static int ENCODER_CPR = 1120;
@@ -88,8 +89,15 @@ public class DragonoidsAuto extends LinearOpMode {
 
         // get a reference to our various hardware objects. The string in the .get() method must be inputed into the phone config (case-sensitive)
 
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
+        parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
+        parameters.loggingEnabled      = true;
+        parameters.loggingTag          = "IMU";
+        gyro = hardwareMap.get(BNO055IMU.class, "gyro");
+        gyro.initialize(parameters);
+
         colorSensor = hardwareMap.get(ColorSensor.class, "distanceColor");
-        gyro = (ModernRoboticsI2cGyro) hardwareMap.gyroSensor.get("gyro");
         rangeSensor = hardwareMap.get(DistanceSensor.class, "distanceColor");
 
         motorRF = hardwareMap.dcMotor.get("right_drive_front");
@@ -116,28 +124,12 @@ public class DragonoidsAuto extends LinearOpMode {
         motorLF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motorLB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-
-        //gyro must be recalibrated upon every auto to ensure correct turns. Gyro is done calibrating when the DS outputs "calibrated:0"
-        gyro.calibrate();
-        while (!isStopRequested() && gyro.isCalibrating()) {
-            sleep(1);
-            telemetry.addData("Measurement mode", gyro.getMeasurementMode());
-            telemetry.update();
-        }
-        gyro.resetZAxisIntegrator();
-
-        // changed the heading to signed heading [-360,360]
-        gyro.setHeadingMode(ModernRoboticsI2cGyro.HeadingMode.HEADING_CARTESIAN);
-
         //LED is disabled as it does nothing relevant and draws power
         colorSensor.enableLed(false);
 
-        //when starting the robot, target angle should be 0 and calibrate in the correct orientation
-        telemetry.addData("Calibrated", targetAngle);
         telemetry.update();
 
         waitForStart();
-        gyro.resetZAxisIntegrator();
 
     }
 
