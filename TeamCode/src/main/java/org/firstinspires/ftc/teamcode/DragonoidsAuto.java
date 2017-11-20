@@ -69,6 +69,7 @@ public class DragonoidsAuto extends LinearOpMode {
     public int targetAngle = 0;
     private int adjustedAngle;
     Orientation angles;
+    int gyroAngle;
 
     // encoder counts per rotation on current wheels
     final static int ENCODER_CPR = 1120;
@@ -98,6 +99,9 @@ public class DragonoidsAuto extends LinearOpMode {
         parameters.loggingTag          = "IMU";
         gyro = hardwareMap.get(BNO055IMU.class, "gyro");
         gyro.initialize(parameters);
+
+        angles   = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        gyroAngle = (int)(angles.firstAngle);
 
         colorSensor = hardwareMap.get(ColorSensor.class, "distanceColor");
         rangeSensor = hardwareMap.get(DistanceSensor.class, "distanceColor");
@@ -157,16 +161,16 @@ public class DragonoidsAuto extends LinearOpMode {
     public void autoCorrect(double power, boolean motion){
         //true is forward false is strafe
         if(motion){
-            motorRF.setPower(power+(targetAngle - gyro.getIntegratedZValue()) * .012);
-            motorRB.setPower(power+(targetAngle - gyro.getIntegratedZValue()) * .012);
-            motorLF.setPower(power-(targetAngle - gyro.getIntegratedZValue()) * .012);
-            motorLB.setPower(power-(targetAngle - gyro.getIntegratedZValue()) * .012);
+            motorRF.setPower(power+(targetAngle - gyroAngle) * .012);
+            motorRB.setPower(power+(targetAngle - gyroAngle) * .012);
+            motorLF.setPower(power-(targetAngle - gyroAngle) * .012);
+            motorLB.setPower(power-(targetAngle - gyroAngle) * .012);
         }
         else if(!motion){
-            motorRF.setPower(power+(targetAngle - gyro.getIntegratedZValue()) * .012);
-            motorRB.setPower(power-(targetAngle - gyro.getIntegratedZValue()) * .012);
-            motorLF.setPower(power+(targetAngle - gyro.getIntegratedZValue()) * .012);
-            motorLB.setPower(power-(targetAngle - gyro.getIntegratedZValue()) * .012);
+            motorRF.setPower(power+(targetAngle - gyroAngle) * .012);
+            motorRB.setPower(power-(targetAngle - gyroAngle) * .012);
+            motorLF.setPower(power+(targetAngle - gyroAngle) * .012);
+            motorLB.setPower(power-(targetAngle - gyroAngle) * .012);
         }
     }
 
@@ -216,7 +220,7 @@ public class DragonoidsAuto extends LinearOpMode {
         targetAngle = angle;
 
         //variable to keep track of current angle using gyro
-        int currentAngle = gyro.getIntegratedZValue();
+        int currentAngle = gyroAngle;
 
         //R U E runs until different (non target position) criteria is met.
         motorRF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -226,12 +230,12 @@ public class DragonoidsAuto extends LinearOpMode {
 
         //until gyro reaches target angle, pass power. Then break and finish
         if ((targetAngle-currentAngle)>0) {
-            while (opModeIsActive() && (targetAngle > gyro.getIntegratedZValue())) {
+            while (opModeIsActive() && (targetAngle > gyroAngle)) {
 
-                if(((targetAngle - gyro.getIntegratedZValue()) * .009)> .4) {
+                if(((targetAngle - gyroAngle) * .009)> .4) {
                     power = .4;
                 } else {
-                    power = (targetAngle - gyro.getIntegratedZValue()) * .009;
+                    power = (targetAngle - gyroAngle) * .009;
                 }
 
                 if (power < .018) {
@@ -244,18 +248,18 @@ public class DragonoidsAuto extends LinearOpMode {
                 motorLB.setPower(-power);
 
                 telemetry.addData("power" , power);
-                telemetry.addData("Current angle" , gyro.getIntegratedZValue());
+                telemetry.addData("Current angle" , gyroAngle);
                 telemetry.addData("Target angle", targetAngle);
                 telemetry.update();
             }
             stopMotors();
         }
         else {
-            while (opModeIsActive() && (targetAngle < gyro.getIntegratedZValue())) {
-                if(((targetAngle - gyro.getIntegratedZValue()) * .009)< -.4) {
+            while (opModeIsActive() && (targetAngle < gyroAngle)) {
+                if(((targetAngle - gyroAngle) * .009)< -.4) {
                     power = -.4;
                 } else {
-                power = (targetAngle - gyro.getIntegratedZValue()) * .009;
+                power = (targetAngle - gyroAngle) * .009;
                 }
 
                 if (power > -.018) {
@@ -268,7 +272,7 @@ public class DragonoidsAuto extends LinearOpMode {
                 motorLB.setPower(-power);
 
                 telemetry.addData("power" , power);
-                telemetry.addData("Current angle" , gyro.getIntegratedZValue());
+                telemetry.addData("Current angle" , gyroAngle);
                 telemetry.addData("Target angle", targetAngle);
                 telemetry.update();
             }
@@ -276,7 +280,7 @@ public class DragonoidsAuto extends LinearOpMode {
         }
         stopMotors();
 
-        telemetry.addData("Angle reached", gyro.getIntegratedZValue());
+        telemetry.addData("Angle reached", gyroAngle);
         telemetry.addData("Angle wanted", targetAngle);
         telemetry.update();
 
@@ -420,7 +424,7 @@ public class DragonoidsAuto extends LinearOpMode {
     //target angle should return back to its target angle before the adjust
     public void adjustHeading() {
 
-       int currentAngle = gyro.getIntegratedZValue();
+       int currentAngle = gyroAngle;
 
         int prevTargetAngle = targetAngle;
 
