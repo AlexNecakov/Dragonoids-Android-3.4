@@ -98,11 +98,21 @@ public class DragonoidsAuto extends LinearOpMode {
         parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
         parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
         parameters.loggingEnabled      = true;
-        parameters.loggingTag          = "IMU";
+        parameters.loggingTag          = "gyro";
         parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
 
-        angles   = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-        gyroAngle = (int)(angles.firstAngle);
+        gyro = hardwareMap.get(BNO055IMU.class, "gyro");
+        gyro.initialize(parameters);
+
+        telemetry.addAction(new Runnable() { @Override public void run()
+        {
+            // Acquiring the angles is relatively expensive; we don't want
+            // to do that in each of the three items that need that info, as that's
+            // three times the necessary expense.
+            gyroAngle   = (int)gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+        }
+        });
+
 
         colorSensor = hardwareMap.get(ColorSensor.class, "distanceColor");
         rangeSensor = hardwareMap.get(DistanceSensor.class, "distanceColor");
@@ -137,6 +147,11 @@ public class DragonoidsAuto extends LinearOpMode {
         telemetry.update();
 
         waitForStart();
+
+        while (opModeIsActive()) {
+            telemetry.addData("Current Angle: ",gyroAngle);
+            telemetry.update();
+        }
 
     }
 
