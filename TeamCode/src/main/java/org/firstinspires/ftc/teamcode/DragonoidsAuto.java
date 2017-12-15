@@ -132,8 +132,8 @@ public class DragonoidsAuto extends LinearOpMode {
         juulKnocker.setPosition(1);
 
         //starts backwards and drives backwards
-        motorRF.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
-        motorRB.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        motorLF.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
+        motorLB.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
 
         //if drive motors receive no power, engage brakes
         motorRF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
