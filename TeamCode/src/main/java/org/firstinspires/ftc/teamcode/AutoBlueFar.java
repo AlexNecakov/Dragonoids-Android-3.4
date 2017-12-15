@@ -19,8 +19,8 @@ public class AutoBlueFar extends DragonoidsAuto{
             strafe(-.1875,.3);
             knock(false);*/
 
-            forward(.25,.1);
-            strafe(.5,.1);
+            forward(1.4,.3);
+            strafe(.5,.3);
             //chooseGlyph(key);
 
             break;

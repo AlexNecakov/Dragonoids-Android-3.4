@@ -18,7 +18,7 @@ public class AutoBlueMat extends DragonoidsAuto{
             strafe(-.1,.1);
             knock(false);*/
 
-            forward(1.5,.5);
+            forward(1.4,.5);
             turn(-90);
             //chooseGlyph(key);
             break;
