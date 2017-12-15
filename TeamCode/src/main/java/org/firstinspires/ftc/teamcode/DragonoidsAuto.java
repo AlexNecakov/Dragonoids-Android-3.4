@@ -104,14 +104,14 @@ public class DragonoidsAuto extends LinearOpMode {
         gyro = hardwareMap.get(BNO055IMU.class, "gyro");
         gyro.initialize(parameters);
 
-        telemetry.addAction(new Runnable() { @Override public void run()
+        new Runnable() { @Override public void run()
         {
             // Acquiring the angles is relatively expensive; we don't want
             // to do that in each of the three items that need that info, as that's
             // three times the necessary expense.
-            gyroAngle   = (int)gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+            gyroAngle   = -(int)gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
         }
-        });
+        };
 
 
         colorSensor = hardwareMap.get(ColorSensor.class, "distanceColor");
@@ -148,11 +148,6 @@ public class DragonoidsAuto extends LinearOpMode {
 
         waitForStart();
 
-        while (opModeIsActive()) {
-            telemetry.addData("Current Angle: ",gyroAngle);
-            telemetry.update();
-        }
-
     }
 
     //reset encoders needs to be called at the beginning of functions for distance to be accurately calculated. Makes encoder count zero again
@@ -176,7 +171,7 @@ public class DragonoidsAuto extends LinearOpMode {
     just create additional input to determine a target angle to adjust by instead of using the global target angle*/
     public void autoCorrect(double power, boolean motion){
         //true is forward false is strafe
-        if(motion){
+        /*if(motion){
             motorRF.setPower(power+(targetAngle - gyroAngle) * .012);
             motorRB.setPower(power+(targetAngle - gyroAngle) * .012);
             motorLF.setPower(power-(targetAngle - gyroAngle) * .012);
@@ -187,7 +182,7 @@ public class DragonoidsAuto extends LinearOpMode {
             motorRB.setPower(power-(targetAngle - gyroAngle) * .012);
             motorLF.setPower(power+(targetAngle - gyroAngle) * .012);
             motorLB.setPower(power-(targetAngle - gyroAngle) * .012);
-        }
+        }*/
     }
 
     //forward moves the robot forward passing a distance in units of tiles and a motor power
@@ -528,6 +523,7 @@ public class DragonoidsAuto extends LinearOpMode {
         //load Relic Recovery images
         VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
         VuforiaTrackable relicTemplate = relicTrackables.get(0);
+        relicTemplate.setName("relicVuMarkTemplate"); // can help in debugging; otherwise not necessary
         relicTrackables.activate();
 
 
