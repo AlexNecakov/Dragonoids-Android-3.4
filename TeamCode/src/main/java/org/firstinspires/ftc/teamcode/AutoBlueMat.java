@@ -14,13 +14,13 @@ public class AutoBlueMat extends DragonoidsAuto{
 
         while (opModeIsActive()) {
 
-            int key = photoSense();
-            strafe(-.1,.3);
-            knock(false);
+            /*int key = photoSense();
+            strafe(-.1,.1);
+            knock(false);*/
 
-           forward(1.5,.8);
+            forward(1.5,.5);
             turn(-90);
-            chooseGlyph(key);
+            //chooseGlyph(key);
             break;
         }
     }
