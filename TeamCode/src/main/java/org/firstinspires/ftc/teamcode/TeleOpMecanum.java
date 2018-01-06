@@ -70,6 +70,7 @@ public class TeleOpMecanum extends LinearOpMode {
     BNO055IMU gyro;
     boolean color;
 
+    boolean grabLock;
     // hsvValues is an array that will hold the hue, saturation, and value information.
     float hsvValues[] = {0F,0F,0F};
 
@@ -107,8 +108,8 @@ public class TeleOpMecanum extends LinearOpMode {
         grabLeft = hardwareMap.get(Servo.class, "left_grabber");
         grabRight = hardwareMap.get(Servo.class, "right_grabber");
 
-        grabLeft.setPosition(1);
-        grabRight.setPosition(0);
+        grabLeft.setPosition(.5);
+        grabRight.setPosition(.5);
 
         juulKnocker = hardwareMap.servo.get("jewel_knocker");
         juulKnocker.setPosition(1);
