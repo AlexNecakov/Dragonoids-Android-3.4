@@ -125,8 +125,8 @@ public class DragonoidsAuto extends LinearOpMode {
         grabLeft = hardwareMap.get(Servo.class, "left_grabber");
         grabRight = hardwareMap.get(Servo.class, "right_grabber");
 
-        grabLeft.setPosition(0);
-        grabRight.setPosition(1);
+        grabLeft.setPosition(.5);
+        grabRight.setPosition(.5);
 
         juulKnocker = hardwareMap.servo.get("jewel_knocker");
         juulKnocker.setPosition(1);
@@ -147,6 +147,9 @@ public class DragonoidsAuto extends LinearOpMode {
         telemetry.update();
 
         waitForStart();
+
+        grabRight.setPosition(.9);
+        grabLeft.setPosition(.1);
 
     }
 
