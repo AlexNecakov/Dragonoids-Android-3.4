@@ -449,9 +449,9 @@ public class DragonoidsAuto extends LinearOpMode {
 
             }
         }
-        //telemetry.update();
-        sleep(300);
+        telemetry.update();
         juulKnocker.setPosition(0);
+        sleep(300);
 
     }
 
