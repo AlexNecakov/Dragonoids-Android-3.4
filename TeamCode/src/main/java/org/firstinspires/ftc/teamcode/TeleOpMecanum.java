@@ -138,10 +138,10 @@ public class TeleOpMecanum extends LinearOpMode {
         while (opModeIsActive()) {
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             //output telemetry of motors
-            telemetry.addData("rightFront", + motorRF.getPower());
-            telemetry.addData("leftFront", + motorLF.getPower());
-            telemetry.addData("rightBack", + motorRB.getPower());
-            telemetry.addData("leftBack", + motorLB.getPower());
+            telemetry.addData("rightFront", +motorRF.getPower());
+            telemetry.addData("leftFront", +motorLF.getPower());
+            telemetry.addData("rightBack", +motorRB.getPower());
+            telemetry.addData("leftBack", +motorLB.getPower());
 
             drive = scaleInput(-gamepad1.left_stick_y);
             strafe = scaleInput(gamepad1.left_stick_x);
@@ -173,7 +173,7 @@ public class TeleOpMecanum extends LinearOpMode {
 
                 motorLift.setPower(-.5);
             }
-            if (Math.abs(gamepad2.right_stick_y) < 0.4){
+            if (Math.abs(gamepad2.right_stick_y) < 0.4) {
                 motorLift.setPower(0);
             }
 
@@ -197,11 +197,11 @@ public class TeleOpMecanum extends LinearOpMode {
             if (gamepad2.right_bumper){
                 grabLock = !grabLock;
             }
+                telemetry.addData("Trigger Position: ", gamepad2.left_trigger);
+                telemetry.addData("Status", "Run Time: " + runtime.toString());
+                telemetry.addData("Distance Traveled: ", motorLF.getCurrentPosition() * (WHEEL_CIRC / ENCODER_CPR));
+                telemetry.update();
 
-            telemetry.addData("Trigger Position: ",gamepad2.left_trigger);
-            telemetry.addData("Status", "Run Time: " + runtime.toString());
-            telemetry.addData("Distance Traveled: ", motorLF.getCurrentPosition() * (WHEEL_CIRC / ENCODER_CPR));
-            telemetry.update();
 
         }
 
