@@ -419,10 +419,13 @@ public class DragonoidsAuto extends LinearOpMode {
 
     public void knock(boolean team){
 
-        juulKnocker.setPosition(0);
+        juulKnocker.setPosition(0.5);
+        telemetry.addData("Reached set pos", true);
+        telemetry.update();
         sleep(600);
         //bool team is what team color you are, blue is false red is true
         if(team==true){
+
             if(detectColor()==1){
                 forward(.08,.2);
             }
