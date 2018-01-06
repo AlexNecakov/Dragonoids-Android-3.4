@@ -397,7 +397,10 @@ public class DragonoidsAuto extends LinearOpMode {
         //0 is no color
         color = 0;
         // convert the RGB values to HSV values.
-        Color.RGBToHSV(colorSensor.red() * 8, colorSensor.green() * 8, colorSensor.blue() * 8, hsvValues);
+        Color.RGBToHSV((int) (colorSensor.red() * 255),
+                (int) (colorSensor.green() * 255),
+                (int) (colorSensor.blue() * 255),
+                hsvValues);
 
         // send the info back to driver station using telemetry function.
         telemetry.addData("Red  ", colorSensor.red());
@@ -428,16 +431,22 @@ public class DragonoidsAuto extends LinearOpMode {
             }
         }
         else{
+            telemetry.addData("Reached team blue check", true);
+            telemetry.update();
             if(detectColor()==1){
-                //forward(-.08,.2);
-                telemetry.addData("Backward: ",1);
+                telemetry.addData("Reached detect color", true);
+                telemetry.update();
+                forward(-.08,.2);
+                telemetry.addData("Reached forward", true);
+                telemetry.update();
+
             }
             else if(detectColor()==2){
-                //forward(.08,.2);
-                telemetry.addData("Forward: ",1);
+                forward(.08,.2);
+
             }
         }
-        telemetry.update();
+        //telemetry.update();
         sleep(300);
         juulKnocker.setPosition(0);
 
