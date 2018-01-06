@@ -117,6 +117,7 @@ public class TeleOpMecanum extends LinearOpMode {
         gyro = hardwareMap.get(BNO055IMU.class, "gyro");
         rangeSensor = hardwareMap.get(DistanceSensor.class, "distanceColor");
 
+        grabLock = false;
         motorLF.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         motorLB.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
         motorLift.setDirection(DcMotor.Direction.REVERSE);
@@ -165,14 +166,18 @@ public class TeleOpMecanum extends LinearOpMode {
             motorLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             motorLift.setPower(.2);*/
 
-            if (gamepad2.right_trigger > 0.1) {
+            if (!grabLock) {
+                if (gamepad2.right_trigger > 0.1) {
 
-                grabRight.setPosition(.9+.1*gamepad2.right_trigger);
-                grabLeft.setPosition(.1-.1*gamepad2.right_trigger);
+                    grabRight.setPosition(.9 + .1 * gamepad2.right_trigger);
+                    grabLeft.setPosition(.1 - .1 * gamepad2.right_trigger);
+                } else {
+                    grabRight.setPosition(.9);
+                    grabLeft.setPosition(.1);
+                }
             }
-            else {
-                grabLeft.setPosition(.75);
-                grabRight.setPosition(.25);
+            if (gamepad2.right_bumper){
+                grabLock = !grabLock;
             }
 
             telemetry.addData("Trigger Position: ",gamepad2.left_trigger);
