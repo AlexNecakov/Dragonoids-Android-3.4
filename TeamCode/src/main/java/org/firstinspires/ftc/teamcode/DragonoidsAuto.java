@@ -214,8 +214,8 @@ public class DragonoidsAuto extends LinearOpMode {
         motorLB.setPower(power);
 
         //this loop actively corrects angle during movement by adjusting power based on gyro distance from target angle
-        while (opModeIsActive() && (Math.abs(motorLF.getCurrentPosition())<=Math.abs(distance)/* ||
-                Math.abs(motorLB.getCurrentPosition())<=Math.abs(distance) || Math.abs(motorLF.getCurrentPosition())<=Math.abs(distance))*/)) {
+        while (opModeIsActive() && (Math.abs(motorLB.getCurrentPosition())<=Math.abs(distance)-10 || Math.abs(motorRF.getCurrentPosition())<=Math.abs(distance)-10 ||
+                Math.abs(motorRB.getCurrentPosition())<=Math.abs(distance)-10 || Math.abs(motorLF.getCurrentPosition())<=Math.abs(distance)-10)) {
                 autoCorrect(power,true);
                 telemetry.addData("Encoder Count LF: ", motorLF.getCurrentPosition());
                 telemetry.addData("Encoder Count LB: ", motorLB.getCurrentPosition());
@@ -331,8 +331,8 @@ public class DragonoidsAuto extends LinearOpMode {
         motorLB.setPower(power);
 
         //auto corrects based on distance from correct target angle
-        while (opModeIsActive() && (Math.abs(motorLF.getCurrentPosition())<=Math.abs(distance)/* ||
-                Math.abs(motorLB.getCurrentPosition())<=Math.abs(distance) || Math.abs(motorLF.getCurrentPosition())<=Math.abs(distance)*/)) {
+        while (opModeIsActive() && (Math.abs(motorLB.getCurrentPosition())<=Math.abs(distance)-10 || Math.abs(motorRF.getCurrentPosition())<=Math.abs(distance)-10 ||
+                Math.abs(motorLF.getCurrentPosition())<=Math.abs(distance)-10 || Math.abs(motorRB.getCurrentPosition())<=Math.abs(distance)-10)) {
 
                     autoCorrect(power,false);
 
