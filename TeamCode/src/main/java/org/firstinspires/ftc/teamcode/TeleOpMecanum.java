@@ -71,6 +71,8 @@ public class TeleOpMecanum extends LinearOpMode {
     boolean color;
 
     boolean grabLock;
+    boolean slowMode;
+
     // hsvValues is an array that will hold the hue, saturation, and value information.
     float hsvValues[] = {0F,0F,0F};
 
@@ -119,6 +121,8 @@ public class TeleOpMecanum extends LinearOpMode {
         rangeSensor = hardwareMap.get(DistanceSensor.class, "distanceColor");
 
         grabLock = false;
+        slowMode = false;
+
         motorLF.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         motorLB.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
         motorLift.setDirection(DcMotor.Direction.REVERSE);
@@ -143,10 +147,23 @@ public class TeleOpMecanum extends LinearOpMode {
             strafe = scaleInput(gamepad1.left_stick_x);
             rotate = scaleInput(gamepad1.right_stick_x);
 
-            motorLF.setPower(Range.clip(drive + strafe + rotate, -1.0, 1.0));
-            motorLB.setPower(Range.clip(drive - strafe + rotate, -1.0, 1.0));
-            motorRF.setPower(Range.clip(drive - strafe - rotate, -1.0, 1.0));
-            motorRB.setPower(Range.clip(drive + strafe - rotate, -1.0, 1.0));
+            if(!slowMode) {
+                motorLF.setPower(Range.clip(drive + strafe + rotate, -1.0, 1.0));
+                motorLB.setPower(Range.clip(drive - strafe + rotate, -1.0, 1.0));
+                motorRF.setPower(Range.clip(drive - strafe - rotate, -1.0, 1.0));
+                motorRB.setPower(Range.clip(drive + strafe - rotate, -1.0, 1.0));
+            }
+            else{
+                motorLF.setPower(.2*Range.clip(drive + strafe + rotate, -1.0, 1.0));
+                motorLB.setPower(.2*Range.clip(drive - strafe + rotate, -1.0, 1.0));
+                motorRF.setPower(.2*Range.clip(drive - strafe - rotate, -1.0, 1.0));
+                motorRB.setPower(.2*Range.clip(drive + strafe - rotate, -1.0, 1.0));
+            }
+
+            if(gamepad1.right_bumper){
+                slowMode = !slowMode;
+            }
+
 
             if (gamepad2.right_stick_y > 0.4) {
 
