@@ -148,8 +148,8 @@ public class DragonoidsAuto extends LinearOpMode {
 
         waitForStart();
 
-        grabRight.setPosition(.9);
-        grabLeft.setPosition(.1);
+        grabRight.setPosition(1);
+        grabLeft.setPosition(0);
 
     }
 
@@ -241,9 +241,6 @@ public class DragonoidsAuto extends LinearOpMode {
         //changes global target angle to the new angle to correct to that one
         targetAngle = angle;
 
-        //variable to keep track of current angle using gyro
-        int currentAngle = gyroAngle;
-
         //R U E runs until different (non target position) criteria is met.
         motorRF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorRB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -251,7 +248,7 @@ public class DragonoidsAuto extends LinearOpMode {
         motorLB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         //until gyro reaches target angle, pass power. Then break and finish
-        if ((targetAngle-currentAngle)>0) {
+        if ((targetAngle-gyroAngle)>0) {
             while (opModeIsActive() && (targetAngle > gyroAngle)) {
 
                 if(((targetAngle - gyroAngle) * .009)> .4) {
