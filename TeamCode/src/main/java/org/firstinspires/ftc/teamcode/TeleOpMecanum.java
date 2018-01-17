@@ -160,18 +160,18 @@ public class TeleOpMecanum extends LinearOpMode {
                 motorRB.setPower(.2*Range.clip(drive + strafe - rotate, -1.0, 1.0));
             }
 
-            if(gamepad1.right_bumper){
+            if(gamepad1.a){
                 slowMode = !slowMode;
             }
 
 
             if (gamepad2.right_stick_y > 0.4) {
 
-                motorLift.setPower(.5);
+                motorLift.setPower(.75);
             }
             if (gamepad2.right_stick_y < -0.4) {
 
-                motorLift.setPower(-.5);
+                motorLift.setPower(-.75);
             }
             if (Math.abs(gamepad2.right_stick_y) < 0.4) {
                 motorLift.setPower(0);
@@ -194,7 +194,7 @@ public class TeleOpMecanum extends LinearOpMode {
                     grabLeft.setPosition(.1);
                 }
             }
-            if (gamepad2.right_bumper){
+            if (gamepad2.a){
                 grabLock = !grabLock;
             }
                 telemetry.addData("Trigger Position: ", gamepad2.left_trigger);
