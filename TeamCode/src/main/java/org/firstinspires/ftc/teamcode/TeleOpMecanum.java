@@ -187,11 +187,11 @@ public class TeleOpMecanum extends LinearOpMode {
             if (!grabLock) {
                 if (gamepad2.right_trigger > 0.1) {
 
-                    grabRight.setPosition(.9 + .1 * gamepad2.right_trigger);
-                    grabLeft.setPosition(.1 - .1 * gamepad2.right_trigger);
+                    grabRight.setPosition(.8 + .2 * gamepad2.right_trigger);
+                    grabLeft.setPosition(.2 - .2 * gamepad2.right_trigger);
                 } else {
-                    grabRight.setPosition(.9);
-                    grabLeft.setPosition(.1);
+                    grabRight.setPosition(.8);
+                    grabLeft.setPosition(.2);
                 }
             }
             if (gamepad2.a){
@@ -266,4 +266,42 @@ public class TeleOpMecanum extends LinearOpMode {
 
         return color;
     }
+    /*
+package org.firstinspires.ftc.teamcode;
+
+        import android.content.Context;
+        import android.speech.tts.TextToSpeech;
+        import android.util.Log;
+
+        import java.util.Locale;
+
+/**
+ * Created by trucc on 3/1/2017.
+
+
+public class RkrTTS {
+
+    private static TextToSpeech tts;
+
+    private static class TTSListener implements TextToSpeech.OnInitListener {
+
+        @Override
+        public void onInit(int initStatus) {
+            if(initStatus == TextToSpeech.SUCCESS) {
+                tts.setLanguage(Locale.US);
+            } else {
+                Log.d("RKR", "ERROR!");
+            }
+        }
+    }
+
+    public void init(Context context) {
+        tts = new TextToSpeech(context, new TTSListener());
+    }
+
+    public void speakWords(String speech) {
+        tts.speak(speech, TextToSpeech.QUEUE_ADD, null);
+    }
+}
+ */
 }
