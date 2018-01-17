@@ -6,8 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 /**
  * Created by Dragonoids on 2/27/2017.
  */
-@Disabled
-@Autonomous(name="Auto Template", group="Blue")
+@Autonomous(name="Auto Red Mat", group="Red")
 public class AutoRedMat extends DragonoidsAuto{
 
     @Override
@@ -15,7 +14,8 @@ public class AutoRedMat extends DragonoidsAuto{
         super.runOpMode();
 
         while (opModeIsActive()) {
-
+            //forward(-1.3,.3);
+            turn(-90);
             break;
         }
     }
