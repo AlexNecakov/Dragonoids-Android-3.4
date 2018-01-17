@@ -15,13 +15,12 @@ public class AutoBlueFar extends DragonoidsAuto{
 
         while (opModeIsActive()) {
 
-            /*int key = photoSense();
-            strafe(-.1875,.3);
-            knock(false);*/
+            int key = photoSense();
+            knock(false);
 
-            forward(1.4,.3);
-            strafe(.5,.3);
-            //chooseGlyph(key);
+            forward(1.3,.3);
+            strafe(.3,.3);
+            chooseGlyph(key, false);
 
             break;
         }
