@@ -560,7 +560,9 @@ public class DragonoidsAuto extends LinearOpMode {
 
 
 
-        while (cryptokey == 0) {
+        long startTime = System.currentTimeMillis();
+
+        while (cryptokey == 0&&(System.currentTimeMillis()-startTime)<7500) {
 
             RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
 
@@ -585,7 +587,11 @@ public class DragonoidsAuto extends LinearOpMode {
 
         //blue = false, red = true
         if (team == false){
-            if (cryptokey == 1) {
+            if (cryptokey == 0) {
+                //move to left glyph
+                strafe(0.1, .3);
+            }
+            else if (cryptokey == 1) {
                 //move to left glyph
                 strafe(0.1, .3);
             } else if (cryptokey == 2) {
@@ -597,7 +603,11 @@ public class DragonoidsAuto extends LinearOpMode {
             }
         }
         else{
-            if (cryptokey == 1) {
+            if (cryptokey == 0) {
+                //move to left glyph
+                strafe(-0.1, .3);
+            }
+            else if (cryptokey == 1) {
                 //move to left glyph
                 strafe(-.9, .3);
             } else if (cryptokey == 2) {
@@ -617,7 +627,7 @@ public class DragonoidsAuto extends LinearOpMode {
         sleep(200);
         forward(-.2,.3);
         forward(.8,.3);
-        forward(-.1,.3);
+        forward(-.2,.3);
     }
 
     public void liftGlyph(){
