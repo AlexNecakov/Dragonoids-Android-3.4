@@ -548,13 +548,13 @@ public class DragonoidsAuto extends LinearOpMode {
             RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
 
             if (vuMark == RelicRecoveryVuMark.LEFT) {
-                cryptokey= 0;
-                telemetry.addData("VuMark", "%s visible", vuMark);
-            } else if (vuMark == RelicRecoveryVuMark.CENTER) {
                 cryptokey= 1;
                 telemetry.addData("VuMark", "%s visible", vuMark);
-            } else if (vuMark == RelicRecoveryVuMark.RIGHT) {
+            } else if (vuMark == RelicRecoveryVuMark.CENTER) {
                 cryptokey= 2;
+                telemetry.addData("VuMark", "%s visible", vuMark);
+            } else if (vuMark == RelicRecoveryVuMark.RIGHT) {
+                cryptokey= 3;
                 telemetry.addData("VuMark", "%s visible", vuMark);
             } else {
                 telemetry.addData("VuMark", "not visible");
@@ -568,27 +568,27 @@ public class DragonoidsAuto extends LinearOpMode {
 
         //blue = false, red = true
         if (team == false){
-            if (cryptokey == 0) {
+            if (cryptokey == 1) {
                 //move to left glyph
-                strafe(0, .3);
-            } else if (cryptokey == 1) {
-                //move to center glyph
-                strafe(.3, .3);
+                strafe(0.1, .3);
             } else if (cryptokey == 2) {
+                //move to center glyph
+                strafe(.45, .3);
+            } else if (cryptokey == 3) {
                 //move to right glyph
-                strafe(.7, .3);
+                strafe(.9, .3);
             }
         }
         else{
-            if (cryptokey == 0) {
+            if (cryptokey == 1) {
                 //move to left glyph
-                strafe(-.7, .3);
-            } else if (cryptokey == 1) {
-                //move to center glyph
-                strafe(-.3, .3);
+                strafe(-.9, .3);
             } else if (cryptokey == 2) {
+                //move to center glyph
+                strafe(-.45, .3);
+            } else if (cryptokey == 3) {
                 //move to right glyph
-                strafe(-.0, .3);
+                strafe(-0.1, .3);
             }
         }
     }
