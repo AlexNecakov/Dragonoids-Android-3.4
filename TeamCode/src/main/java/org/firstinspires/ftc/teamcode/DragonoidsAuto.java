@@ -433,23 +433,34 @@ public class DragonoidsAuto extends LinearOpMode {
         if(team==true){
 
             if(detectColor()==1){
-                forward(.08,.2);
+                forward(.1,.2);
+                juulKnocker.setPosition(1);
+                sleep(900);
+                forward(-.1,.2);
             }
             else if(detectColor()==2){
-                forward(-.08,.2);
+                forward(-.1,.2);
+                juulKnocker.setPosition(1);
+                sleep(900);
+                forward(.1, .2);
             }
         }
         else{
 
             if(detectColor()==1){
-                forward(-.08,.2);
+                forward(-.1,.2);
+                juulKnocker.setPosition(1);
+                sleep(900);
+                forward(.1, .2);
             }
             else if(detectColor()==2){
-                forward(.08,.2);
+                forward(.1,.1);
+                juulKnocker.setPosition(1);
+                sleep(900);
+                forward(-.1, .18);
             }
         }
-        juulKnocker.setPosition(1);
-        sleep(900);
+
 
     }
 
