@@ -53,6 +53,8 @@ public class DragonoidsAuto extends LinearOpMode {
     DcMotor motorLF;
     DcMotor motorLB;
 
+    DcMotor motorLift;
+
     //declaring servos
     Servo juulKnocker;
     Servo grabLeft;
@@ -131,9 +133,12 @@ public class DragonoidsAuto extends LinearOpMode {
         juulKnocker = hardwareMap.servo.get("jewel_knocker");
         juulKnocker.setPosition(.7);
 
+        motorLift = hardwareMap.dcMotor.get("lift");
+
         //starts backwards and drives backwards
         motorLF.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         motorLB.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        motorLift.setDirection(DcMotor.Direction.REVERSE);
 
         //if drive motors receive no power, engage brakes
         motorRF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -586,5 +591,11 @@ public class DragonoidsAuto extends LinearOpMode {
                 strafe(-.0, .3);
             }
         }
+    }
+    public void liftGlyph(){
+        sleep(250);
+        motorLift.setPower(-.5);
+        sleep(1500);
+        motorLift.setPower(0);
     }
 }
