@@ -17,7 +17,7 @@ public class AutoBlueMat extends DragonoidsAuto{
             liftGlyph();
             int key = photoSense();
             knock(false);
-            forward(1.25,.3);
+            forward(1,.3);
             turn(-90);
             chooseGlyph(key, false);
             releaseGlyph();

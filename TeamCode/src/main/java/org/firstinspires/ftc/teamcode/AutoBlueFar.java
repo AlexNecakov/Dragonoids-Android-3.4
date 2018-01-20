@@ -19,7 +19,7 @@ public class AutoBlueFar extends DragonoidsAuto{
             int key = photoSense();
             knock(false);
 
-            forward(1.25,.3);
+            forward(1.1,.3);
             strafe(.1,.3);
             chooseGlyph(key, false);
             forward(.3,.3);
