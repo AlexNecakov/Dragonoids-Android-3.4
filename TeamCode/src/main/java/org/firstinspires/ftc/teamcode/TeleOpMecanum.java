@@ -190,7 +190,7 @@ public class TeleOpMecanum extends LinearOpMode {
             }
 
 
-            if (gamepad2.left_stick_y > 0.4) {
+            /*if (gamepad2.left_stick_y > 0.4) {
 
                 motorRelic.setPower(1);
             }
@@ -223,7 +223,7 @@ public class TeleOpMecanum extends LinearOpMode {
 
             if(gamepad2.x){
                 relicGrabbed=!relicGrabbed;
-            }
+            }*/
 
             //theoretical lift code for going down constantly
            /*double liftPosition = ENCODER_CPR * ROTATE* gamepad2.left_trigger*.58;
