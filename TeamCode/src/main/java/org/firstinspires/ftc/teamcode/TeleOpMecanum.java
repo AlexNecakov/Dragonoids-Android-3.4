@@ -58,11 +58,15 @@ public class TeleOpMecanum extends LinearOpMode {
     DcMotor motorLB;
 
     DcMotor motorLift;
+    DcMotor motorRelic;
 
     //Declare servos
     Servo grabLeft;
     Servo grabRight;
     Servo juulKnocker;
+
+    Servo relicArm;
+    Servo relicGrab;
 
     //declaring various sensors
     ColorSensor colorSensor;
@@ -72,6 +76,8 @@ public class TeleOpMecanum extends LinearOpMode {
 
     boolean grabLock;
     boolean slowMode;
+    boolean relicGrabbed;
+    boolean relicLifted;
 
     // hsvValues is an array that will hold the hue, saturation, and value information.
     float hsvValues[] = {0F,0F,0F};
@@ -106,6 +112,7 @@ public class TeleOpMecanum extends LinearOpMode {
         motorLB = hardwareMap.dcMotor.get("left_drive_back");
 
         motorLift = hardwareMap.dcMotor.get("lift");
+        motorRelic = hardwareMap.dcMotor.get("relic");
 
         grabLeft = hardwareMap.get(Servo.class, "left_grabber");
         grabRight = hardwareMap.get(Servo.class, "right_grabber");
@@ -116,12 +123,17 @@ public class TeleOpMecanum extends LinearOpMode {
         juulKnocker = hardwareMap.servo.get("jewel_knocker");
         juulKnocker.setPosition(1);
 
+        relicArm = hardwareMap.servo.get("relicArm");
+        relicGrab = hardwareMap.servo.get("relicGrab");
+
         colorSensor = hardwareMap.get(ColorSensor.class, "distanceColor");
         gyro = hardwareMap.get(BNO055IMU.class, "gyro");
         rangeSensor = hardwareMap.get(DistanceSensor.class, "distanceColor");
 
         grabLock = false;
         slowMode = false;
+        relicGrabbed = false;
+        relicLifted = false;
 
         motorLF.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         motorLB.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
@@ -169,14 +181,49 @@ public class TeleOpMecanum extends LinearOpMode {
 
                 motorLift.setPower(.75);
             }
-            if (gamepad2.right_stick_y < -0.4) {
+            else if (gamepad2.right_stick_y < -0.4) {
 
                 motorLift.setPower(-.75);
             }
-            if (Math.abs(gamepad2.right_stick_y) < 0.4) {
+            else if (Math.abs(gamepad2.right_stick_y) < 0.4) {
                 motorLift.setPower(0);
             }
 
+
+            if (gamepad2.left_stick_y > 0.4) {
+
+                motorRelic.setPower(1);
+            }
+            else if (gamepad2.left_stick_y < -0.4) {
+
+                motorRelic.setPower(-1);
+            }
+            else if (Math.abs(gamepad2.right_stick_y) < 0.4) {
+                motorRelic.setPower(0);
+            }
+
+
+
+            if(relicLifted){
+                relicArm.setPosition(1);
+            }
+            else{
+                relicArm.setPosition(.2);
+            }
+            if(gamepad2.left_trigger>.3){
+                relicLifted=!relicLifted;
+            }
+
+            if(!relicGrabbed){
+                relicGrab.setPosition(0);
+            }
+            else{
+                relicGrab.setPosition(1);
+            }
+
+            if(gamepad2.x){
+                relicGrabbed=!relicGrabbed;
+            }
 
             //theoretical lift code for going down constantly
            /*double liftPosition = ENCODER_CPR * ROTATE* gamepad2.left_trigger*.58;
@@ -197,7 +244,6 @@ public class TeleOpMecanum extends LinearOpMode {
             if (gamepad2.a){
                 grabLock = !grabLock;
             }
-                telemetry.addData("Trigger Position: ", gamepad2.left_trigger);
                 telemetry.addData("Status", "Run Time: " + runtime.toString());
                 telemetry.addData("Distance Traveled: ", motorLF.getCurrentPosition() * (WHEEL_CIRC / ENCODER_CPR));
                 telemetry.update();
