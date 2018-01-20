@@ -14,8 +14,14 @@ public class AutoRedMat extends DragonoidsAuto{
         super.runOpMode();
 
         while (opModeIsActive()) {
-            //forward(-1.3,.3);
+
+            liftGlyph();
+            int key = photoSense();
+            knock(true);
+            forward(-1.25,.3);
             turn(-90);
+            chooseGlyph(key, true);
+            releaseGlyph();
             break;
         }
     }

@@ -14,9 +14,15 @@ public class AutoRedFar extends DragonoidsAuto{
         super.runOpMode();
 
         while (opModeIsActive()) {
-            forward(-1.3,.3);
-            strafe(.3,.3);
-            //turn(-180);
+
+            liftGlyph();
+            int key = photoSense();
+            knock(true);
+            forward(-1.1,.3);
+            turn(-180);
+            strafe(-.2,.3);
+            chooseGlyph(key, true);
+            releaseGlyph();
             break;
         }
     }
