@@ -21,6 +21,7 @@ public class AutoBlueMat extends DragonoidsAuto{
             turn(-90);
             chooseGlyph(key, false);
             releaseGlyph();
+            multiGlyph();
 
             break;
         }
