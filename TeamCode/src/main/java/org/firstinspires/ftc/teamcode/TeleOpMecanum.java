@@ -58,6 +58,7 @@ public class TeleOpMecanum extends LinearOpMode {
     DcMotor motorLB;
 
     DcMotor motorLift;
+    DcMotor motorLift2;
     DcMotor motorRelic;
 
     //Declare servos
@@ -112,6 +113,7 @@ public class TeleOpMecanum extends LinearOpMode {
         motorLB = hardwareMap.dcMotor.get("left_drive_back");
 
         motorLift = hardwareMap.dcMotor.get("lift");
+        motorLift2 = hardwareMap.dcMotor.get("lift2");
         motorRelic = hardwareMap.dcMotor.get("relic");
 
         grabLeft = hardwareMap.get(Servo.class, "left_grabber");
@@ -138,6 +140,7 @@ public class TeleOpMecanum extends LinearOpMode {
         motorLF.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         motorLB.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
         motorLift.setDirection(DcMotor.Direction.REVERSE);
+        motorLift2.setDirection(DcMotor.Direction.REVERSE);
 
 
 //MediaPlayer player = MediaPlayer.create(hardwareMap.appContext, R.raw.file);
@@ -180,13 +183,16 @@ public class TeleOpMecanum extends LinearOpMode {
             if (gamepad2.right_stick_y > 0.4) {
 
                 motorLift.setPower(.75);
+                motorLift2.setPower(.75);
             }
             else if (gamepad2.right_stick_y < -0.4) {
 
                 motorLift.setPower(-.75);
+                motorLift2.setPower(-.75);
             }
             else if (Math.abs(gamepad2.right_stick_y) < 0.4) {
                 motorLift.setPower(0);
+                motorLift2.setPower(0);
             }
 
 
