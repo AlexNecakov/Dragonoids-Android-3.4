@@ -633,19 +633,44 @@ public class DragonoidsAuto extends LinearOpMode {
     public void lowerGlyph(){
         sleep(250);
         motorLift.setPower(.5);
-        sleep(1500);
+        sleep(250);
         motorLift.setPower(0);
     }
 
-    public void multiGlyph(){
+    public void multiGlyph(int column, boolean team){
         lowerGlyph();
-        turn(-180);
+        if(!team) {
+            turn(90);
+        }
+        else{
+            turn(-90);
+        }
         forward(2, .8);
         grabRight.setPosition(1);
         grabLeft.setPosition(0);
         liftGlyph();
         forward(-2,.8);
-        turn(-180);
+        if(!team) {
+            turn(-90);
+        }
+        else{
+            turn(90);
+        }
+        if(column==0&&!team){
+            strafe(.45,.3);
+        }
+        else if(column==0&&team){
+            strafe(-.45, .3);
+        }
+        else if(column==1){
+            strafe(.45, .3);
+        }
+        else if(column==2){
+            strafe(.45, .3);
+        }
+        else{
+            strafe(-.45,.3);
+        }
         forward(.4,.3);
         releaseGlyph();
 
