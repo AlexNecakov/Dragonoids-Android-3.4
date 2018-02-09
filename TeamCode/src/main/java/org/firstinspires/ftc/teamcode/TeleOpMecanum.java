@@ -182,13 +182,13 @@ public class TeleOpMecanum extends LinearOpMode {
 
             if (gamepad2.right_stick_y > 0.4) {
 
-                motorLift.setPower(.75);
-                motorLift2.setPower(.75);
+                motorLift.setPower(1);
+                motorLift2.setPower(1);
             }
             else if (gamepad2.right_stick_y < -0.4) {
 
-                motorLift.setPower(-.75);
-                motorLift2.setPower(-.75);
+                motorLift.setPower(-1);
+                motorLift2.setPower(-1);
             }
             else if (Math.abs(gamepad2.right_stick_y) < 0.4) {
                 motorLift.setPower(0);
