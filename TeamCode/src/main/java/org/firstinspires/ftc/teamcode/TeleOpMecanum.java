@@ -75,10 +75,6 @@ public class TeleOpMecanum extends LinearOpMode {
     BNO055IMU gyro;
     boolean color;
 
-    boolean grabLock;
-    boolean slowMode;
-    boolean relicGrabbed;
-    boolean relicLifted;
 
     // hsvValues is an array that will hold the hue, saturation, and value information.
     float hsvValues[] = {0F,0F,0F};
@@ -131,12 +127,7 @@ public class TeleOpMecanum extends LinearOpMode {
         colorSensor = hardwareMap.get(ColorSensor.class, "distanceColor");
         gyro = hardwareMap.get(BNO055IMU.class, "gyro");
         rangeSensor = hardwareMap.get(DistanceSensor.class, "distanceColor");
-
-        grabLock = false;
-        slowMode = false;
-        relicGrabbed = false;
-        relicLifted = false;
-
+        
         motorLF.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         motorLB.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
         motorLift.setDirection(DcMotor.Direction.REVERSE);
@@ -162,7 +153,7 @@ public class TeleOpMecanum extends LinearOpMode {
             strafe = scaleInput(gamepad1.left_stick_x);
             rotate = scaleInput(gamepad1.right_stick_x);
 
-            if(!slowMode) {
+            if(!gamepad1.a) {
                 motorLF.setPower(Range.clip(drive + strafe + rotate, -1.0, 1.0));
                 motorLB.setPower(Range.clip(drive - strafe + rotate, -1.0, 1.0));
                 motorRF.setPower(Range.clip(drive - strafe - rotate, -1.0, 1.0));
@@ -175,9 +166,6 @@ public class TeleOpMecanum extends LinearOpMode {
                 motorRB.setPower(.2*Range.clip(drive + strafe - rotate, -1.0, 1.0));
             }
 
-            if(gamepad1.a){
-                slowMode = !slowMode;
-            }
 
 
             if (gamepad2.right_stick_y > 0.4) {
@@ -210,26 +198,20 @@ public class TeleOpMecanum extends LinearOpMode {
 
 
 
-            if(relicLifted){
+            if(gamepad2.left_trigger>.3){
                 relicArm.setPosition(1);
             }
             else{
                 relicArm.setPosition(.2);
             }
-            if(gamepad2.left_trigger>.3){
-                relicLifted=!relicLifted;
-            }
-
-            if(!relicGrabbed){
-                relicGrab.setPosition(0);
-            }
-            else{
-                relicGrab.setPosition(1);
-            }
 
             if(gamepad2.x){
-                relicGrabbed=!relicGrabbed;
+                relicGrab.setPosition(1);
             }
+            else{
+                relicGrab.setPosition(0);
+            }
+
 
             //theoretical lift code for going down constantly
            /*double liftPosition = ENCODER_CPR * ROTATE* gamepad2.left_trigger*.58;
@@ -237,19 +219,23 @@ public class TeleOpMecanum extends LinearOpMode {
             motorLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             motorLift.setPower(.2);*/
 
-            if (!grabLock) {
-                if (gamepad2.right_trigger > 0.1) {
+           if(!gamepad2.y) {
+               if (!gamepad2.a) {
+                   if (gamepad2.right_trigger > 0.1) {
 
-                    grabRight.setPosition(.8 + .2 * gamepad2.right_trigger);
-                    grabLeft.setPosition(.2 - .2 * gamepad2.right_trigger);
-                } else {
-                    grabRight.setPosition(.8);
-                    grabLeft.setPosition(.2);
-                }
-            }
-            if (gamepad2.a){
-                grabLock = !grabLock;
-            }
+                       grabRight.setPosition(.8 + .2 * gamepad2.right_trigger);
+                       grabLeft.setPosition(.2 - .2 * gamepad2.right_trigger);
+                   } else {
+                       grabRight.setPosition(.8);
+                       grabLeft.setPosition(.2);
+                   }
+               }
+           }
+            else{
+               grabLeft.setPosition(.5);
+               grabRight.setPosition(.5);
+           }
+
                 telemetry.addData("Status", "Run Time: " + runtime.toString());
                 telemetry.addData("Distance Traveled: ", motorLF.getCurrentPosition() * (WHEEL_CIRC / ENCODER_CPR));
                 telemetry.update();
