@@ -54,6 +54,7 @@ public class DragonoidsAuto extends LinearOpMode {
     DcMotor motorLB;
 
     DcMotor motorLift;
+    DcMotor motorLift2;
 
     //declaring servos
     Servo juulKnocker;
@@ -146,6 +147,7 @@ public class DragonoidsAuto extends LinearOpMode {
         juulKnocker.setPosition(.7);
 
         motorLift = hardwareMap.dcMotor.get("lift");
+        motorLift2 = hardwareMap.dcMotor.get("lift2");
 
         //starts backwards and drives backwards
         motorLF.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
@@ -549,10 +551,6 @@ public class DragonoidsAuto extends LinearOpMode {
     public int photoSense() {
         int cryptokey = 0;
 
-
-
-
-
         long startTime = System.currentTimeMillis();
 
         while (cryptokey == 0&&(System.currentTimeMillis()-startTime)<3000) {
@@ -625,16 +623,16 @@ public class DragonoidsAuto extends LinearOpMode {
 
     public void liftGlyph(){
         sleep(250);
-        motorLift.setPower(-.5);
+        motorLift2.setPower(-.5);
         sleep(250);
-        motorLift.setPower(0);
+        motorLift2.setPower(0);
     }
 
     public void lowerGlyph(){
         sleep(250);
-        motorLift.setPower(.5);
+        motorLift2.setPower(.5);
         sleep(250);
-        motorLift.setPower(0);
+        motorLift2.setPower(0);
     }
 
     public void multiGlyph(int column, boolean team){
