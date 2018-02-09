@@ -123,7 +123,7 @@ public class TeleOpMecanum extends LinearOpMode {
         grabRight.setPosition(.5);
 
         juulKnocker = hardwareMap.servo.get("jewel_knocker");
-        juulKnocker.setPosition(1);
+        juulKnocker.setPosition(0);
 
         relicArm = hardwareMap.servo.get("relicArm");
         relicGrab = hardwareMap.servo.get("relicGrab");

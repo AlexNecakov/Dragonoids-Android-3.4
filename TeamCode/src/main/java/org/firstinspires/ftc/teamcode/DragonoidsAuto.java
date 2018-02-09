@@ -125,7 +125,7 @@ public class DragonoidsAuto extends LinearOpMode {
         grabRight.setPosition(.5);
 
         juulKnocker = hardwareMap.servo.get("jewel_knocker");
-        juulKnocker.setPosition(.7);
+        juulKnocker.setPosition(.3);
 
         motorLift = hardwareMap.dcMotor.get("lift");
         motorLift2 = hardwareMap.dcMotor.get("lift2");
@@ -419,35 +419,35 @@ public class DragonoidsAuto extends LinearOpMode {
 
     public void knock(boolean team){
 
-        juulKnocker.setPosition(0);
+        juulKnocker.setPosition(1);
         sleep(900);
         //bool team is what team color you are, blue is false red is true
         if(team==true){
 
-            if(detectColor()==1){
+            if(detectColor()==2){
                 forward(.1,.2);
-                juulKnocker.setPosition(1);
+                juulKnocker.setPosition(0);
                 sleep(900);
                 forward(-.1,.2);
             }
-            else if(detectColor()==2){
+            else if(detectColor()==1){
                 forward(-.1,.2);
-                juulKnocker.setPosition(1);
+                juulKnocker.setPosition(0);
                 sleep(900);
                 forward(.1, .2);
             }
         }
         else{
 
-            if(detectColor()==1){
+            if(detectColor()==2){
                 forward(-.1,.2);
-                juulKnocker.setPosition(1);
+                juulKnocker.setPosition(0);
                 sleep(900);
                 forward(.1, .2);
             }
-            else if(detectColor()==2){
+            else if(detectColor()==1){
                 forward(.1,.1);
-                juulKnocker.setPosition(1);
+                juulKnocker.setPosition(0);
                 sleep(900);
                 forward(-.1, .18);
             }
