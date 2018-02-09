@@ -125,7 +125,7 @@ public class DragonoidsAuto extends LinearOpMode {
         grabRight.setPosition(.5);
 
         juulKnocker = hardwareMap.servo.get("jewel_knocker");
-        juulKnocker.setPosition(.3);
+        juulKnocker.setPosition(0);
 
         motorLift = hardwareMap.dcMotor.get("lift");
         motorLift2 = hardwareMap.dcMotor.get("lift2");
