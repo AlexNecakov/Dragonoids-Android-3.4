@@ -424,13 +424,13 @@ public class DragonoidsAuto extends LinearOpMode {
         //bool team is what team color you are, blue is false red is true
         if(team==true){
 
-            if(detectColor()==2){
+            if(detectColor()==1){
                 forward(.1,.2);
                 juulKnocker.setPosition(0);
                 sleep(900);
                 forward(-.1,.2);
             }
-            else if(detectColor()==1){
+            else if(detectColor()==2){
                 forward(-.1,.2);
                 juulKnocker.setPosition(0);
                 sleep(900);
@@ -439,13 +439,13 @@ public class DragonoidsAuto extends LinearOpMode {
         }
         else{
 
-            if(detectColor()==2){
+            if(detectColor()==1){
                 forward(-.1,.2);
                 juulKnocker.setPosition(0);
                 sleep(900);
                 forward(.1, .2);
             }
-            else if(detectColor()==1){
+            else if(detectColor()==2){
                 forward(.1,.1);
                 juulKnocker.setPosition(0);
                 sleep(900);
