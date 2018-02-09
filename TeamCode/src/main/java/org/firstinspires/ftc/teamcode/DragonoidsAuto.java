@@ -621,16 +621,16 @@ public class DragonoidsAuto extends LinearOpMode {
     }
 
     public void liftGlyph(){
-        sleep(250);
-        motorLift2.setPower(-.5);
-        sleep(250);
+        sleep(300);
+        motorLift2.setPower(1);
+        sleep(300);
         motorLift2.setPower(0);
     }
 
     public void lowerGlyph(){
-        sleep(250);
-        motorLift2.setPower(.5);
-        sleep(250);
+        sleep(300);
+        motorLift2.setPower(-1);
+        sleep(300);
         motorLift2.setPower(0);
     }
 
