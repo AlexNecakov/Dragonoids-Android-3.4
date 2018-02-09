@@ -68,7 +68,6 @@ public class DragonoidsAuto extends LinearOpMode {
 
     //declaring vuforia instance
     VuforiaLocalizer vuforia;
-    VuforiaTrackable relicTemplate;
 
     //declaring variables for angle adjustment
     public int targetAngle = 0;
@@ -109,24 +108,6 @@ public class DragonoidsAuto extends LinearOpMode {
         gyro.initialize(parameters);
 
         gyroAngle = -(int)gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
-
-        //start vuforia with camera monitor
-        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        VuforiaLocalizer.Parameters vuParameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
-        // VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
-
-        //vuforia license DO NOT CHANGE THIS LINE
-        vuParameters.vuforiaLicenseKey = "AegzGgb/////AAAAGY1xgpx1VUoDps1ud5K9VtYvynoEaO+Pg4uSUqw0ZTHIythxw9xKhy4+Ev14+mYsJAPNacxxg1TtpjWBVCHtvin9nRwZFMrgt086cfqtxBOrw+BHlj6tcy3oG33e/vCFmd755KLNFt8NbEM97YtYhJdrlxVKg7bZ4SJPl8QAu0XUrtjm/GlCz2GNrsIMYZ2ao6lMmfYzU/aUIRzGdBw46bZbFBNTXmbYB5Fml3jT9aKXDDSbH+HJHATrok7LO0+yd8Dbyhl/fLsRZ/vI1B/NRZNv/HpDIrEieDsyIDj60xV44BP4o3gR3URhgRamNxNl5ddZpxPqzB2xldScjENbF4ULBCLvIBOCudbI7BDiylrr";
-
-        //activate rear camera
-        vuParameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
-        this.vuforia = ClassFactory.createVuforiaLocalizer(vuParameters);
-
-        //load Relic Recovery images
-        VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
-        relicTemplate = relicTrackables.get(0);
-        relicTemplate.setName("relicVuMarkTemplate"); // can help in debugging; otherwise not necessary
-        relicTrackables.activate();
 
 
         colorSensor = hardwareMap.get(ColorSensor.class, "distanceColor");
@@ -550,6 +531,24 @@ public class DragonoidsAuto extends LinearOpMode {
 
     public int photoSense() {
         int cryptokey = 0;
+
+        //start vuforia with camera monitor
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        VuforiaLocalizer.Parameters vuParameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
+        // VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
+
+        //vuforia license DO NOT CHANGE THIS LINE
+        vuParameters.vuforiaLicenseKey = "AegzGgb/////AAAAGY1xgpx1VUoDps1ud5K9VtYvynoEaO+Pg4uSUqw0ZTHIythxw9xKhy4+Ev14+mYsJAPNacxxg1TtpjWBVCHtvin9nRwZFMrgt086cfqtxBOrw+BHlj6tcy3oG33e/vCFmd755KLNFt8NbEM97YtYhJdrlxVKg7bZ4SJPl8QAu0XUrtjm/GlCz2GNrsIMYZ2ao6lMmfYzU/aUIRzGdBw46bZbFBNTXmbYB5Fml3jT9aKXDDSbH+HJHATrok7LO0+yd8Dbyhl/fLsRZ/vI1B/NRZNv/HpDIrEieDsyIDj60xV44BP4o3gR3URhgRamNxNl5ddZpxPqzB2xldScjENbF4ULBCLvIBOCudbI7BDiylrr";
+
+        //activate rear camera
+        vuParameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
+        this.vuforia = ClassFactory.createVuforiaLocalizer(vuParameters);
+
+        //load Relic Recovery images
+        VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
+        VuforiaTrackable relicTemplate = relicTrackables.get(0);
+        relicTemplate.setName("relicVuMarkTemplate"); // can help in debugging; otherwise not necessary
+        relicTrackables.activate();
 
         long startTime = System.currentTimeMillis();
 
