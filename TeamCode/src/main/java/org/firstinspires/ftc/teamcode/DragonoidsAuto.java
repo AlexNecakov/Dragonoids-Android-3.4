@@ -133,7 +133,7 @@ public class DragonoidsAuto extends LinearOpMode {
         //starts backwards and drives backwards
         motorLF.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         motorLB.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
-        motorLift.setDirection(DcMotor.Direction.REVERSE);
+        motorLift2.setDirection(DcMotor.Direction.REVERSE);
 
         //if drive motors receive no power, engage brakes
         motorRF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -622,15 +622,15 @@ public class DragonoidsAuto extends LinearOpMode {
 
     public void liftGlyph(){
         sleep(300);
-        motorLift2.setPower(1);
-        sleep(300);
+        motorLift2.setPower(-1);
+        sleep(500);
         motorLift2.setPower(0);
     }
 
     public void lowerGlyph(){
         sleep(300);
-        motorLift2.setPower(-1);
-        sleep(300);
+        motorLift2.setPower(1);
+        sleep(500);
         motorLift2.setPower(0);
     }
 

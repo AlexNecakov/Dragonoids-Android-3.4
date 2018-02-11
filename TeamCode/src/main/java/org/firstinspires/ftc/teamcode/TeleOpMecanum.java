@@ -127,10 +127,9 @@ public class TeleOpMecanum extends LinearOpMode {
         colorSensor = hardwareMap.get(ColorSensor.class, "distanceColor");
         gyro = hardwareMap.get(BNO055IMU.class, "gyro");
         rangeSensor = hardwareMap.get(DistanceSensor.class, "distanceColor");
-        
+
         motorLF.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         motorLB.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
-        motorLift.setDirection(DcMotor.Direction.REVERSE);
         motorLift2.setDirection(DcMotor.Direction.REVERSE);
 
 
