@@ -631,6 +631,8 @@ public class DragonoidsAuto extends LinearOpMode {
     }
 
     public void liftGlyph(){
+        grabRight.setPosition(1);
+        grabLeft.setPosition(0);
         sleep(300);
         motorLift2.setPower(-1);
         sleep(500);
@@ -638,6 +640,8 @@ public class DragonoidsAuto extends LinearOpMode {
     }
 
     public void lowerGlyph(){
+        grabLeft.setPosition(.5);
+        grabRight.setPosition(.5);
         sleep(300);
         motorLift2.setPower(1);
         sleep(500);
