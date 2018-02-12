@@ -674,7 +674,7 @@ public class DragonoidsAuto extends LinearOpMode {
 
             liftGlyph();
             if(digitalTouch.getState() == true) {
-                releaseGlyph();
+                lowerGlyph();
                 numFails++;
             }
         }
