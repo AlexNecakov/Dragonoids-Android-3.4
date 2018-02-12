@@ -48,6 +48,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 public class DragonoidsAuto extends LinearOpMode {
 
+    private ElapsedTime runtime = new ElapsedTime();
     //declaring all drive motors
     DcMotor motorRF;
     DcMotor motorRB;
@@ -157,8 +158,6 @@ public class DragonoidsAuto extends LinearOpMode {
 
         waitForStart();
 
-        grabRight.setPosition(1);
-        grabLeft.setPosition(0);
 
     }
 
@@ -656,7 +655,7 @@ public class DragonoidsAuto extends LinearOpMode {
             turn(-90);
         }
         resetEncoders();
-        while(getRange()>1/24){
+        while(getRange()>1/24&&runtime.time()<26.5){
             motorRF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             motorRB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             motorLF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
