@@ -655,7 +655,7 @@ public class DragonoidsAuto extends LinearOpMode {
             turn(-90);
         }
         resetEncoders();
-        while(getRange()>1/24&&runtime.time()<26.5){
+        while(getRange()>1/24){
             motorRF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             motorRB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             motorLF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -669,7 +669,7 @@ public class DragonoidsAuto extends LinearOpMode {
         double pileDist = motorLF.getCurrentPosition();
         int numFails = 0;
 
-        while(digitalTouch.getState() == true){
+        while(digitalTouch.getState() == true&&runtime.time()<26.5){
             forward(1/24,.25);
 
             liftGlyph();
@@ -678,6 +678,7 @@ public class DragonoidsAuto extends LinearOpMode {
                 numFails++;
             }
         }
+        liftGlyph();
         pileDist = pileDist/(ENCODER_CPR*ROTATE);
         pileDist+=(numFails/24);
 
