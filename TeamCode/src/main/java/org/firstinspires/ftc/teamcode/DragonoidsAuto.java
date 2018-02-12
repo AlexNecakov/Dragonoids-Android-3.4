@@ -509,7 +509,7 @@ public class DragonoidsAuto extends LinearOpMode {
     }
 
     public double getRange () {
-        double range = rangeSensor.getDistance(DistanceUnit.INCH);
+        double range = glyphSensor.getDistance(DistanceUnit.INCH)/24;
         return range;
     }
 
