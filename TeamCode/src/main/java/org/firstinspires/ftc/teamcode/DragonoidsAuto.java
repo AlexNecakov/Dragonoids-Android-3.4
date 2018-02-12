@@ -649,18 +649,41 @@ public class DragonoidsAuto extends LinearOpMode {
     }
 
     public void multiGlyph(int column, boolean team){
-        lowerGlyph();
         if(!team) {
             turn(90);
         }
         else{
             turn(-90);
         }
-        forward(2, .8);
-        grabRight.setPosition(1);
-        grabLeft.setPosition(0);
-        liftGlyph();
-        forward(-2,.8);
+        resetEncoders();
+        while(getRange()>1/24){
+            motorRF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            motorRB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            motorLF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            motorLB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+            motorRF.setPower(.75);
+            motorRB.setPower(.75);
+            motorLF.setPower(.75);
+            motorLB.setPower(.75);
+        }
+        double pileDist = motorLF.getCurrentPosition();
+        int numFails = 0;
+
+        while(digitalTouch.getState() == true){
+            forward(1/24,.25);
+
+            liftGlyph();
+            if(digitalTouch.getState() == true) {
+                releaseGlyph();
+                numFails++;
+            }
+        }
+        pileDist = pileDist/(ENCODER_CPR*ROTATE);
+        pileDist+=(numFails/24);
+
+        forward(-pileDist,.75);
+
         if(!team) {
             turn(-90);
         }
