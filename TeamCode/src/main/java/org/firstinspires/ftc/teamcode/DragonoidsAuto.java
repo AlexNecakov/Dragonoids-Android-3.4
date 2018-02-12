@@ -8,6 +8,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.I2cDevice;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -65,6 +66,8 @@ public class DragonoidsAuto extends LinearOpMode {
     ColorSensor colorSensor;
     DistanceSensor rangeSensor;
     BNO055IMU gyro;
+    ModernRoboticsI2cRangeSensor glyphSensor;
+    DigitalChannel digitalTouch;
 
     //declaring vuforia instance
     VuforiaLocalizer vuforia;
@@ -113,6 +116,9 @@ public class DragonoidsAuto extends LinearOpMode {
         colorSensor = hardwareMap.get(ColorSensor.class, "distanceColor");
         rangeSensor = hardwareMap.get(DistanceSensor.class, "distanceColor");
 
+        glyphSensor = hardwareMap.get(ModernRoboticsI2cRangeSensor.class, "glyphSensor");
+        digitalTouch = hardwareMap.get(DigitalChannel.class, "sensor_digital");
+
         motorRF = hardwareMap.dcMotor.get("right_drive_front");
         motorRB = hardwareMap.dcMotor.get("right_drive_back");
         motorLF = hardwareMap.dcMotor.get("left_drive_front");
@@ -140,6 +146,9 @@ public class DragonoidsAuto extends LinearOpMode {
         motorRB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motorLF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motorLB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        // set the digital channel to input.
+        digitalTouch.setMode(DigitalChannel.Mode.INPUT);
 
         //LED is disabled as it does nothing relevant and draws power
         colorSensor.enableLed(false);
@@ -416,6 +425,7 @@ public class DragonoidsAuto extends LinearOpMode {
 
         return color;
     }
+
 
     public void knock(boolean team){
 
