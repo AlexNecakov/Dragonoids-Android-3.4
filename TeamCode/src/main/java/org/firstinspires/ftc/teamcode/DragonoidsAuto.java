@@ -72,6 +72,7 @@ public class DragonoidsAuto extends LinearOpMode {
 
     //declaring vuforia instance
     VuforiaLocalizer vuforia;
+    VuforiaTrackable relicTemplate;
 
     //declaring variables for angle adjustment
     public int targetAngle = 0;
@@ -154,9 +155,28 @@ public class DragonoidsAuto extends LinearOpMode {
         //LED is disabled as it does nothing relevant and draws power
         colorSensor.enableLed(false);
 
+        //start vuforia with camera monitor
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        VuforiaLocalizer.Parameters vuParameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
+        // VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
+
+        //vuforia license DO NOT CHANGE THIS LINE
+        vuParameters.vuforiaLicenseKey = "AegzGgb/////AAAAGY1xgpx1VUoDps1ud5K9VtYvynoEaO+Pg4uSUqw0ZTHIythxw9xKhy4+Ev14+mYsJAPNacxxg1TtpjWBVCHtvin9nRwZFMrgt086cfqtxBOrw+BHlj6tcy3oG33e/vCFmd755KLNFt8NbEM97YtYhJdrlxVKg7bZ4SJPl8QAu0XUrtjm/GlCz2GNrsIMYZ2ao6lMmfYzU/aUIRzGdBw46bZbFBNTXmbYB5Fml3jT9aKXDDSbH+HJHATrok7LO0+yd8Dbyhl/fLsRZ/vI1B/NRZNv/HpDIrEieDsyIDj60xV44BP4o3gR3URhgRamNxNl5ddZpxPqzB2xldScjENbF4ULBCLvIBOCudbI7BDiylrr";
+
+        //activate rear camera
+        vuParameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
+        this.vuforia = ClassFactory.createVuforiaLocalizer(vuParameters);
+
+        //load Relic Recovery images
+        VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
+        relicTemplate = relicTrackables.get(0);
+        relicTemplate.setName("relicVuMarkTemplate"); // can help in debugging; otherwise not necessary
+
         telemetry.update();
 
         waitForStart();
+        relicTrackables.activate();
+
 
 
     }
@@ -263,7 +283,7 @@ public class DragonoidsAuto extends LinearOpMode {
                 gyroAngle = -(int)gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
 
                 if(targetAngle - gyroAngle>1 ){
-                    power = -.4;
+                    power = -.8;
                 }
 
                 else{
@@ -287,7 +307,7 @@ public class DragonoidsAuto extends LinearOpMode {
                 gyroAngle = -(int)gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
 
                 if(targetAngle - gyroAngle<-1) {
-                    power = .4;
+                    power = .8;
                 }
                 else {
                     break;
@@ -540,27 +560,9 @@ public class DragonoidsAuto extends LinearOpMode {
     public int photoSense() {
         int cryptokey = 0;
 
-        //start vuforia with camera monitor
-        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        VuforiaLocalizer.Parameters vuParameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
-        // VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
-
-        //vuforia license DO NOT CHANGE THIS LINE
-        vuParameters.vuforiaLicenseKey = "AegzGgb/////AAAAGY1xgpx1VUoDps1ud5K9VtYvynoEaO+Pg4uSUqw0ZTHIythxw9xKhy4+Ev14+mYsJAPNacxxg1TtpjWBVCHtvin9nRwZFMrgt086cfqtxBOrw+BHlj6tcy3oG33e/vCFmd755KLNFt8NbEM97YtYhJdrlxVKg7bZ4SJPl8QAu0XUrtjm/GlCz2GNrsIMYZ2ao6lMmfYzU/aUIRzGdBw46bZbFBNTXmbYB5Fml3jT9aKXDDSbH+HJHATrok7LO0+yd8Dbyhl/fLsRZ/vI1B/NRZNv/HpDIrEieDsyIDj60xV44BP4o3gR3URhgRamNxNl5ddZpxPqzB2xldScjENbF4ULBCLvIBOCudbI7BDiylrr";
-
-        //activate rear camera
-        vuParameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
-        this.vuforia = ClassFactory.createVuforiaLocalizer(vuParameters);
-
-        //load Relic Recovery images
-        VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
-        VuforiaTrackable relicTemplate = relicTrackables.get(0);
-        relicTemplate.setName("relicVuMarkTemplate"); // can help in debugging; otherwise not necessary
-        relicTrackables.activate();
-
         long startTime = System.currentTimeMillis();
 
-        while (cryptokey == 0&&(System.currentTimeMillis()-startTime)<3000) {
+        while (cryptokey == 0&&(System.currentTimeMillis()-startTime)<1000) {
 
             RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
 
@@ -587,33 +589,33 @@ public class DragonoidsAuto extends LinearOpMode {
         if (team == false){
             if (cryptokey == 0) {
                 //move to left glyph
-                strafe(0.1, .3);
+                strafe(0.1, .5);
             }
             else if (cryptokey == 1) {
                 //move to left glyph
-                strafe(0.1, .3);
+                strafe(0.1, .5);
             } else if (cryptokey == 2) {
                 //move to center glyph
-                strafe(.45, .3);
+                strafe(.45, .5);
             } else if (cryptokey == 3) {
                 //move to right glyph
-                strafe(.9, .3);
+                strafe(.9, .5);
             }
         }
         else{
             if (cryptokey == 0) {
                 //move to left glyph
-                strafe(-0.1, .3);
+                strafe(-0.1, .5);
             }
             else if (cryptokey == 1) {
                 //move to left glyph
-                strafe(-.9, .3);
+                strafe(-.9, .5);
             } else if (cryptokey == 2) {
                 //move to center glyph
-                strafe(-.45, .3);
+                strafe(-.45, .5);
             } else if (cryptokey == 3) {
                 //move to right glyph
-                strafe(-0.1, .3);
+                strafe(-0.1, .5);
             }
         }
     }
@@ -623,9 +625,9 @@ public class DragonoidsAuto extends LinearOpMode {
         grabLeft.setPosition(.5);
         grabRight.setPosition(.5);
         sleep(200);
-        forward(-.2,.3);
-        forward(.8,.3);
-        forward(-.2,.3);
+        forward(-.2,.5);
+        forward(.4,.5);
+        forward(-.2,.5);
     }
 
     public void liftGlyph(){
@@ -654,7 +656,7 @@ public class DragonoidsAuto extends LinearOpMode {
             turn(-90);
         }
         resetEncoders();
-        while(getRange()>1/24){
+        /*while(getRange()>1/24){
             motorRF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             motorRB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             motorLF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -664,7 +666,9 @@ public class DragonoidsAuto extends LinearOpMode {
             motorRB.setPower(.75);
             motorLF.setPower(.75);
             motorLB.setPower(.75);
-        }
+        }*/
+
+        forward(2,.8);
         double pileDist = motorLF.getCurrentPosition();
         int numFails = 0;
 
@@ -690,21 +694,21 @@ public class DragonoidsAuto extends LinearOpMode {
             turn(90);
         }
         if(column==0&&!team){
-            strafe(.45,.3);
+            strafe(.45,.5);
         }
         else if(column==0&&team){
-            strafe(-.45, .3);
+            strafe(-.45, .5);
         }
         else if(column==1){
-            strafe(.45, .3);
+            strafe(.45, .5);
         }
         else if(column==2){
-            strafe(.45, .3);
+            strafe(.45, .5);
         }
         else{
-            strafe(-.45,.3);
+            strafe(-.45,.5);
         }
-        forward(.4,.3);
+        forward(.4,.5);
         releaseGlyph();
 
     }

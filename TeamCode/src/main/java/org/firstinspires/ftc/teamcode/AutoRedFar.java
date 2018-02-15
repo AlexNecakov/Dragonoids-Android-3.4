@@ -18,9 +18,9 @@ public class AutoRedFar extends DragonoidsAuto{
             liftGlyph();
             int key = photoSense();
             knock(true);
-            forward(-1.1,.3);
+            forward(-1,.3);
             turn(-180);
-            strafe(-.2,.3);
+            strafe(-.15,.3);
             chooseGlyph(key, true);
             releaseGlyph();
             break;
