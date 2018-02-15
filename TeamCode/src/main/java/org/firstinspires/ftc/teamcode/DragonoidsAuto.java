@@ -626,7 +626,7 @@ public class DragonoidsAuto extends LinearOpMode {
         grabRight.setPosition(.5);
         sleep(200);
         forward(-.2,.5);
-        forward(.4,.5);
+        forward(.65,.5);
         forward(-.2,.5);
     }
 
@@ -634,8 +634,10 @@ public class DragonoidsAuto extends LinearOpMode {
         grabRight.setPosition(1);
         grabLeft.setPosition(0);
         sleep(300);
+        motorLift.setPower(-1);
         motorLift2.setPower(-1);
-        sleep(500);
+        sleep(300);
+        motorLift.setPower(0);
         motorLift2.setPower(0);
     }
 
@@ -643,8 +645,10 @@ public class DragonoidsAuto extends LinearOpMode {
         grabLeft.setPosition(.5);
         grabRight.setPosition(.5);
         sleep(300);
+        motorLift.setPower(1);
         motorLift2.setPower(1);
-        sleep(500);
+        sleep(300);
+        motorLift.setPower(0);
         motorLift2.setPower(0);
     }
 
@@ -668,12 +672,12 @@ public class DragonoidsAuto extends LinearOpMode {
             motorLB.setPower(.75);
         }*/
 
-        forward(2,.8);
+        forward(2,.9);
         double pileDist = motorLF.getCurrentPosition();
         int numFails = 0;
 
-        while(digitalTouch.getState() == true&&runtime.time()<26.5){
-            forward(1/24,.25);
+        while(digitalTouch.getState() == true&&runtime.time()<26){
+            forward(1/12,.25);
 
             liftGlyph();
             if(digitalTouch.getState() == true) {
@@ -683,9 +687,9 @@ public class DragonoidsAuto extends LinearOpMode {
         }
         liftGlyph();
         pileDist = pileDist/(ENCODER_CPR*ROTATE);
-        pileDist+=(numFails/24);
+        pileDist+=(numFails/12);
 
-        forward(-pileDist,.75);
+        forward(-pileDist,.9);
 
         if(!team) {
             turn(-90);
