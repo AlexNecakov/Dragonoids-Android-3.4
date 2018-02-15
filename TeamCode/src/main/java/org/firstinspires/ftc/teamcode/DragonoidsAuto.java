@@ -282,8 +282,7 @@ public class DragonoidsAuto extends LinearOpMode {
             }
             stopMotors();
         }
-        else {
-            while (opModeIsActive() && (targetAngle < gyroAngle)) {
+        else {            while (opModeIsActive() && (targetAngle < gyroAngle)) {
 
                 gyroAngle = -(int)gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
 
@@ -435,13 +434,13 @@ public class DragonoidsAuto extends LinearOpMode {
 
             if(detectColor()==1){
                 forward(.1,.2);
-                juulKnocker.setPosition(0.1);
+                juulKnocker.setPosition(0.2);
                 sleep(900);
                 forward(-.1,.2);
             }
             else if(detectColor()==2){
                 forward(-.1,.2);
-                juulKnocker.setPosition(0.1);
+                juulKnocker.setPosition(0.2);
                 sleep(900);
                 forward(.1, .2);
             }
@@ -450,13 +449,13 @@ public class DragonoidsAuto extends LinearOpMode {
 
             if(detectColor()==1){
                 forward(-.1,.2);
-                juulKnocker.setPosition(0.1);
+                juulKnocker.setPosition(0.2);
                 sleep(900);
                 forward(.1, .2);
             }
             else if(detectColor()==2){
                 forward(.1,.1);
-                juulKnocker.setPosition(0.1);
+                juulKnocker.setPosition(0.2);
                 sleep(900);
                 forward(-.1, .18);
             }
