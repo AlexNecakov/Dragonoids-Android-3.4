@@ -283,7 +283,7 @@ public class DragonoidsAuto extends LinearOpMode {
                 gyroAngle = -(int)gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
 
                 if(targetAngle - gyroAngle>1 ){
-                    power = -.8;
+                    power = -.6;
                 }
 
                 else{
@@ -307,7 +307,7 @@ public class DragonoidsAuto extends LinearOpMode {
                 gyroAngle = -(int)gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
 
                 if(targetAngle - gyroAngle<-1) {
-                    power = .8;
+                    power = .6;
                 }
                 else {
                     break;
@@ -560,7 +560,7 @@ public class DragonoidsAuto extends LinearOpMode {
         sleep(200);
         forward(-.2,.5);
         forward(.65,.5);
-        forward(-.3,.5);
+        forward(-.4,.5);
     }
 
     public void liftGlyph(){
