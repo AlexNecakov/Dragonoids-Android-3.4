@@ -22,6 +22,7 @@ public class AutoRedMat extends DragonoidsAuto{
             turn(-90);
             chooseGlyph(key, true);
             releaseGlyph();
+            multiGlyph(key,true);
             break;
         }
     }

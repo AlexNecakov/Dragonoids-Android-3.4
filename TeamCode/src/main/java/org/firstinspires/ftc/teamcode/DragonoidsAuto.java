@@ -484,78 +484,11 @@ public class DragonoidsAuto extends LinearOpMode {
 
     }
 
-    //target angle should return back to its target angle before the adjust
-    public void adjustHeading() {
-
-       int currentAngle = gyroAngle;
-
-        int prevTargetAngle = targetAngle;
-
-        adjustedAngle = (targetAngle);
-
-        if (!(currentAngle > -8 && currentAngle < 8)) {
-            turn(adjustedAngle);
-        }
-        targetAngle = prevTargetAngle;
-    }
-
-
-    public void alignLine(boolean value) {
-
-        motorRF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        motorRB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        motorLF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        motorLB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        if(value) {
-            while(false && opModeIsActive()){
-
-
-                motorRF.setPower(-.15);
-                motorRB.setPower(-.15);
-                motorLF.setPower(-.15);
-                motorLB.setPower(-.15); }
-        } else {
-            while(false && opModeIsActive()){
-
-                motorRF.setPower(.15);
-                motorRB.setPower(.15);
-                motorLF.setPower(.15);
-                motorLB.setPower(.15); }
-            }
-        stopMotors();
-    }
 
     public double getRange () {
         double range = glyphSensor.getDistance(DistanceUnit.INCH)/24;
         return range;
     }
-
-    public void adjustRange () {
-        double range = getRange();
-        motorRF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        motorRB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        motorLF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        motorLB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        if (range>7) {
-            while ((opModeIsActive()&&getRange()>7.75)) {
-                motorRF.setPower(-.35);
-                motorRB.setPower(.35);
-                motorLF.setPower(.35);
-                motorLB.setPower(-.35);
-            }
-        }
-        else {
-            while (opModeIsActive()&&(getRange()<7.75)){
-                motorRF.setPower(.35);
-                motorRB.setPower(-.35);
-                motorLF.setPower(-.35);
-                motorLB.setPower(.35);
-            }
-        }
-        stopMotors();
-        }
 
     public int photoSense() {
         int cryptokey = 0;
@@ -627,7 +560,7 @@ public class DragonoidsAuto extends LinearOpMode {
         sleep(200);
         forward(-.2,.5);
         forward(.65,.5);
-        forward(-.2,.5);
+        forward(-.3,.5);
     }
 
     public void liftGlyph(){
