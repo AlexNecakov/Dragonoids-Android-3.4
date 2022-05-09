@@ -1,3 +1,6 @@
+# Dragonoids Robot FTC - 2017-18
+This is the project code for the 2017-18 FTC robotics competition, Relic Recovery, for team 4286, Dragonoids. This code is built off of skeleton code provided for the FTC competition, and several years of Dragonoids developers including Ryan Petschek, Scott Barnett, myself, and Alex Galik. This code is deployed as an Android app onto a robot and can run either an Autonomous or Remote Controlled op mode. There are four different versions of the autonomous op mode, for various starting positions, and each uses Vuforia for image recognition during autonomous. The tele op modes allow two drivers to use Xbox 360 controllers to control the robot during the controlled portion of the competition. Below is the previous readme explaining deployment and file structure.
+
 ## Welcome!
 This GitHub repository contains the source code that is used to build an Android app to control a *FIRST* Tech Challenge competition robot.  To use this SDK, download/clone the entire project to your local computer.
 
